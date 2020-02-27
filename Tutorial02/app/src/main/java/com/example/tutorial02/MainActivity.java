@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Nfc extra tag intent", Toast.LENGTH_SHORT).show();
 
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            NdefMessage ndefMessage = createNdefMessage("Forza Lazio!");
+            
+            TextView userTextViewEdit = findViewById(R.id.editText);
+            NdefMessage ndefMessage = createNdefMessage(userTextViewEdit.toString());
             writeNdefMessage(tag, ndefMessage);
         }
 
@@ -170,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private NdefMessage createNdefMessage (String content){
+
         NdefRecord ndefRecord = createTextRecord(content);
         NdefMessage ndefMessage = new NdefMessage(new NdefRecord[] { ndefRecord } );
 
