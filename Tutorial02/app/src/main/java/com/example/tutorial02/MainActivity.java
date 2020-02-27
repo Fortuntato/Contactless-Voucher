@@ -14,6 +14,8 @@ import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,13 +29,31 @@ public class MainActivity extends AppCompatActivity {
 
     NfcAdapter nfcAdapter;
 
+    Switch switchReadWrite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        // Get the instance of the switch
+        switchReadWrite = findViewById(R.id.readWriteSwitch);
+        switchReadWrite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    // Toggle is enabled. Writing mode
 
+                }else{
+                    // Toggle is disabled. Reading mode
+
+                }
+
+            }
+        });
+
+        //Try to get the adapter of the Nfc
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if(nfcAdapter != null && nfcAdapter.isEnabled()){
             Toast.makeText(this, "NFC is enabled", Toast.LENGTH_LONG).show();
         }else{
@@ -45,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         Toast.makeText(this,"Nfc intent received", Toast.LENGTH_SHORT).show();
-        TextView textview = findViewById(R.id.helloworld);
+        TextView textview = findViewById(R.id.readTextView);
 
         super.onNewIntent(intent);
 
@@ -53,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Nfc extra tag intent", Toast.LENGTH_SHORT).show();
 
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            
+
             TextView userTextViewEdit = findViewById(R.id.editText);
             NdefMessage ndefMessage = createNdefMessage(userTextViewEdit.toString());
             writeNdefMessage(tag, ndefMessage);

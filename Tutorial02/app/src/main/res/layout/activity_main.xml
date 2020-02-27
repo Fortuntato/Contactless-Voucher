@@ -7,28 +7,18 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/helloworld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/readTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="205dp"
+        android:layout_height="55dp"
         android:layout_marginStart="178dp"
         android:layout_marginLeft="178dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="144dp"
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
-        android:layout_marginBottom="261dp"
         android:text="Reading..."
-        app:layout_constraintBottom_toTopOf="@+id/helloworld"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,16 +28,33 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="106dp"
         android:layout_marginLeft="106dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="264dp"
         android:layout_marginEnd="92dp"
         android:layout_marginRight="92dp"
-        android:layout_marginBottom="46dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Text to write"
-        app:layout_constraintBottom_toTopOf="@+id/helloworld"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/readTextView" />
+
+    <Switch
+        android:id="@+id/readWriteSwitch"
+        android:layout_width="217dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginLeft="106dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_marginBottom="110dp"
+        android:textOn="Write"
+        android:textOff="Read"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
