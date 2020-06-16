@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "NFC Page";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>This is the NFC Page</p>
+
+@*<p> Checkbox for WebNFC enabling</p>*@ 
+
+
+<button id="toggle-nfc" onclick="runNFC()"> Start NFC! </button>
+
+<script>
+    function runNFC() {
+            console.log("NFC Read On");   
+            new WebNFC(scan).read(read);
+    }
+</script>
