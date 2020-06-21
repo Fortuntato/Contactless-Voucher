@@ -6,14 +6,93 @@
 
 <p>This is the NFC Page</p>
 
-@*<p> Checkbox for WebNFC enabling</p>*@ 
+@*<p> Checkbox for WebNFC enabling</p>*@
 
 
-<button id="toggle-nfc" onclick="runNFC()"> Start NFC! </button>
+@*<button id="toggle-nfc" onclick="runNFC()"> Start NFC! </button>*@
+
+<input type="text" id="writeNFC" name="label" value="NFC"><br><br>
+
+<button id="scanButton">Scan</button>
+<button id="writeButton">Write</button>
+
+<p id="scannedValue">Written text</p>
 
 <script>
     function runNFC() {
-            console.log("NFC Read On");   
-            new WebNFC(scan).read(read);
+        console.log("NFC Read On");
+        new WebNFC(scan).read(read);
     }
+
+
+    scanButton.addEventListener("click", async () => {
+        console.log("User clicked scan button");
+
+        try {
+            const reader = new NDEFReader();
+            await reader.scan();
+            console.log("> Scan started");
+
+            reader.addEventListener("error", (event) => {
+                console.log(`Argh! ${event.message}`);
+            });
+
+
+
+            reader.addEventListener("reading", ({ message, serialNumber }) => {
+
+                var text = "";
+                const decoder = new TextDecoder();
+                var newLine = "&#10";
+
+                for (const record of message.records) {
+                    switch (record.recordType) {
+                        case "empty":
+                            text += newLine + "(empty case)";
+                            break;
+                        case "text":
+                            text += newLine + decoder.decode(record.data) + "(text case)";
+                            break;
+                        case "url":
+                            text += newLine + decoder.decode(record.data) + "URL case";
+                            break;
+                        case "smart-poster":
+                            text += newLine + decoder.decode(record.data) + "(smart poster case)";
+                            break;
+                        case "absolute-url":
+                            text += newLine + decoder.decode(record.data) +"(absolute URL)";
+                            break;
+                        case "mime":
+                            text += newLine + decoder.decode(record.data) +"(mime case)";
+                            break;
+                        case "unknown":
+                            text += newLine + decoder.decode(record.data) + "(UNKNOWN)";
+                        default:
+                            text += newLine + "Something unexpected: " + record
+                            break;
+                    }
+                }
+
+                console.log(`> Serial Number: ${serialNumber}`);
+                console.log(`> Records: (${message.records.length})`);
+                document.getElementById("scannedValue").innerHTML = text;
+            });
+        } catch (error) {
+            console.log("Argh! " + error);
+        }
+    });
+
+    writeButton.addEventListener("click", async () => {
+        console.log("User clicked write button");
+
+        try {
+            const writer = new NDEFWriter();
+            var textToWrite = document.getElementById("writeNFC").value;
+            console.log("Writing:" + textToWrite);
+            await writer.write(textToWrite);
+            console.log("> Message written");
+        } catch (error) {
+            console.log("Argh! " + error);
+        }
+    });
 </script>
