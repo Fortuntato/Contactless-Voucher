@@ -9,9 +9,15 @@
 @*<p> Checkbox for WebNFC enabling</p>*@
 
 
-@*<button id="toggle-nfc" onclick="runNFC()"> Start NFC! </button>*@
-
-<input type="text" id="writeNFC" name="label" value="NFC"><br><br>
+<div>
+    <input list="writeOptions" name="writeMode" id="writeOptionList" value="json">
+    <datalist id="writeOptions">
+        <option value="text">Description</option>
+        <option value="URL">Description</option>
+        <option value="json">Description</option>
+    </datalist>
+</div>
+<input type="text" id="writeText" name="label" value="NFC"><br><br>
 
 <button id="scanButton">Scan</button>
 <button id="writeButton">Write</button>
@@ -19,6 +25,7 @@
 <p id="scannedValue">Written text</p>
 
 <script>
+
     function runNFC() {
         console.log("NFC Read On");
         new WebNFC(scan).read(read);
@@ -60,10 +67,10 @@
                             text += newLine + decoder.decode(record.data) + "(smart poster case)";
                             break;
                         case "absolute-url":
-                            text += newLine + decoder.decode(record.data) +"(absolute URL)";
+                            text += newLine + decoder.decode(record.data) + "(absolute URL)";
                             break;
                         case "mime":
-                            text += newLine + decoder.decode(record.data) +"(mime case)";
+                            text += newLine + decoder.decode(record.data) + "(mime case)";
                             break;
                         case "unknown":
                             text += newLine + decoder.decode(record.data) + "(UNKNOWN)";
@@ -87,7 +94,7 @@
 
         try {
             const writer = new NDEFWriter();
-            var textToWrite = document.getElementById("writeNFC").value;
+            var textToWrite = document.getElementById("writeText").value;
             console.log("Writing:" + textToWrite);
             await writer.write(textToWrite);
             console.log("> Message written");
