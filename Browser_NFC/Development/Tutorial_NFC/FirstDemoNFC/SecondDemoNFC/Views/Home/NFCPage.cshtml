@@ -79,11 +79,9 @@
                                 text = decoder.decode(record.data);
                                 // To display json object inside html page
                                 var mainContainer = document.getElementById("jsonData");
-                                for (var i = 0; i < message.records.length - 1; i++) {
                                     var div = document.createElement("div");
                                     div.innerHTML = "Name: " + json.name + " Position: " + json.position;
                                     mainContainer.appendChild(div);
-                                }
 
                             }
                             break;
