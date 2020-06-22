@@ -8,21 +8,23 @@
 
 @*<p> Checkbox for WebNFC enabling</p>*@
 
-
-<div>
-    <input list="writeOptions" name="writeMode" id="writeOptionList" value="json">
-    <datalist id="writeOptions">
-        <option value="text">Description</option>
-        <option value="URL">Description</option>
-        <option value="json">Description</option>
-    </datalist>
-</div>
+@*<div>
+        <input list="writeOptions" name="writeMode" id="writeOptionList" value="json">
+        <datalist id="writeOptions">
+            <option value="text">Description</option>
+            <option value="URL">Description</option>
+            <option value="json">Description</option>
+        </datalist>
+    </div>*@
 <input type="text" id="writeText" name="label" value="NFC"><br><br>
 
 <button id="scanButton">Scan</button>
 <button id="writeButton">Write</button>
-
+<br />
 <p id="scannedValue">Written text</p>
+<div id="jsonData"></div>
+
+
 
 <script>
 
@@ -50,7 +52,7 @@
 
                 var text = "";
                 const decoder = new TextDecoder();
-                var newLine = "&#10";
+                var newLine = "\n";
 
                 for (const record of message.records) {
                     switch (record.recordType) {
@@ -70,7 +72,20 @@
                             text += newLine + decoder.decode(record.data) + "(absolute URL)";
                             break;
                         case "mime":
-                            text += newLine + decoder.decode(record.data) + "(mime case)";
+
+                            if (record.mediaType === 'application/json') {
+                                const json = JSON.parse(decoder.decode(record.data));
+                                console.log(json);
+                                text = decoder.decode(record.data);
+                                // To display json object inside html page
+                                var mainContainer = document.getElementById("jsonData");
+                                for (var i = 0; i < message.records.length - 1; i++) {
+                                    var div = document.createElement("div");
+                                    div.innerHTML = "Name: " + json.name + " Position: " + json.position;
+                                    mainContainer.appendChild(div);
+                                }
+
+                            }
                             break;
                         case "unknown":
                             text += newLine + decoder.decode(record.data) + "(UNKNOWN)";
@@ -94,9 +109,32 @@
 
         try {
             const writer = new NDEFWriter();
-            var textToWrite = document.getElementById("writeText").value;
-            console.log("Writing:" + textToWrite);
-            await writer.write(textToWrite);
+            const encoder = new TextEncoder();
+
+            //var textToWrite = document.getElementById("writeText").value;
+            //console.log("Writing:" + textToWrite);
+            //await writer.write(textToWrite);
+
+            writer.write({
+                records: [
+                    {
+                        recordType: "mime",
+                        mediaType: "application/json",
+                        data: encoder.encode(JSON.stringify({
+                            name: "Ciro Immobile",
+                            position: "Striker"
+                        }))
+                    },
+                    {
+                        recordType: "mime",
+                        mediaType: "application/json",
+                        data: encoder.encode(JSON.stringify({
+                            name: "Lucas Leiva",
+                            position: "Midfielder"
+                        }))
+                    }]
+            });
+
             console.log("> Message written");
         } catch (error) {
             console.log("Argh! " + error);
