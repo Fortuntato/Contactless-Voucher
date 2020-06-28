@@ -45,11 +45,15 @@ div.login-logout-tab ul.nav-tabs {
 }
 
 div.login-logout-tab li.nav-item{
-    witdh: 50%;
+    width: 50%;
 }
 
 div.login-logout-tab a.nav-link{
     font-size: 25px;
     color: cornflowerblue;
     text-align: center;
+}
+
+.active {
+    background-color:lightgreen;
 }

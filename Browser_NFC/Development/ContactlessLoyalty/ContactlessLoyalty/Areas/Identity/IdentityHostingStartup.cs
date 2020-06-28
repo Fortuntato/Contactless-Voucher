@@ -15,13 +15,22 @@ namespace ContactlessLoyalty.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.AddDbContext<AuthenticationContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthenticationContextConnection")));
 
-                services.AddDefaultIdentity<AccountContactlessLoyaltyUser>()
-                    .AddEntityFrameworkStores<AuthenticationContext>();
+                services.AddDefaultIdentity<AccountContactlessLoyaltyUser>(
+                    options =>
+                    {
+                        options.SignIn.RequireConfirmedEmail = false;
+                        options.SignIn.RequireConfirmedPhoneNumber = false;
+                        options.Password.RequireLowercase = false;
+                        options.Password.RequireUppercase = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                    }
+                ).AddEntityFrameworkStores<AuthenticationContext>();
             });
         }
     }

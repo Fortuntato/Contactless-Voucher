@@ -41,6 +41,16 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -59,7 +69,14 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
+            // Make sure the user is not going to register while already logged in
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/");
+            }
+
             ReturnUrl = returnUrl;
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -67,7 +84,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new AccountContactlessLoyaltyUser { UserName = Input.Email, Email = Input.Email };
+                var user = new AccountContactlessLoyaltyUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
