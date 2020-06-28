@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-ContactlessLoyalty-2C03366C-32EA-45A2-B62E-F18EA95D692D</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
