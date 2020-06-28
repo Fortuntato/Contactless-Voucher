@@ -42,7 +42,8 @@ namespace ContactlessLoyalty.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(20)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(20)", nullable: true)
+                    LastName = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    MobilePhoneNumber = table.Column<string>(type: "nvarchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {
