@@ -35,3 +35,21 @@ body {
         display: none;
     }
 }
+
+div.login-logout-tab div.card-hearder{
+    padding: 0px 0px 12px 0px;
+}
+
+div.login-logout-tab ul.nav-tabs {
+    padding: 0px 0px 12px 0px;
+}
+
+div.login-logout-tab li.nav-item{
+    witdh: 50%;
+}
+
+div.login-logout-tab a.nav-link{
+    font-size: 25px;
+    color: cornflowerblue;
+    text-align: center;
+}

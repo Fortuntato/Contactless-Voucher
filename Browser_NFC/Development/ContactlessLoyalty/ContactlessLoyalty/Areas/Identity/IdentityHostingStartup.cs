@@ -1,5 +1,6 @@
 ﻿using System;
-using ContactlessLoyalty.Data;
+using ContactlessLoyalty.Areas.Identity.Data;
+using ContactlessLoyalty.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -15,6 +16,12 @@ namespace ContactlessLoyalty.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
+                services.AddDbContext<AuthenticationContext>(options =>
+                    options.UseSqlServer(
+                        context.Configuration.GetConnectionString("AuthenticationContextConnection")));
+
+                services.AddDefaultIdentity<AccountContactlessLoyaltyUser>()
+                    .AddEntityFrameworkStores<AuthenticationContext>();
             });
         }
     }
