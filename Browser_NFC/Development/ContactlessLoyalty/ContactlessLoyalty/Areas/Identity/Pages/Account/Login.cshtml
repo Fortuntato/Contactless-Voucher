@@ -7,8 +7,6 @@
 }
 
 <form method="post">
-
-    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Input.PhoneNumber"></label>
         <input asp-for="Input.PhoneNumber" class="form-control" />
@@ -18,6 +16,9 @@
         <label asp-for="Input.Password"></label>
         <input asp-for="Input.Password" class="form-control" />
         <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <div>
+        <div asp-validation-summary="All" class="text-danger"></div>
     </div>
     <div class="form-group">
         <div class="checkbox">
