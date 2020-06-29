@@ -36,17 +36,36 @@ body {
     }
 }
 
-div.login-logout-tab div.card-hearder{
+
+
+/*for tab control*/
+div.login-logout-tab div.card-header {
     padding: 0px 0px 12px 0px;
 }
 
 div.login-logout-tab ul.nav-tabs {
-    padding: 0px 0px 12px 0px;
+    margin: 0px 0px -12px 0px;
 }
 
-div.login-logout-tab li.nav-item{
+div.login-logout-tab li.nav-item {
     width: 50%;
 }
+
+div.login-logout-tab a.nav-link {
+    font-size: 25px;
+    color: #495057;
+    text-align: center;
+}
+
+div.card-content {
+    padding: 10px 20px;
+}
+
+/*login form*/
+div.login-form-icon {
+    text-align: center;
+}
+
 
 div.login-logout-tab a.nav-link{
     font-size: 25px;

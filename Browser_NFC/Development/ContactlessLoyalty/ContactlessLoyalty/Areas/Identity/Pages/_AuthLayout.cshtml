@@ -1,9 +1,12 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
-    <div class="col-md-6 offset-md-5">
+    <div>
+        <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
+    </div>
+    <br />
+    <div class="col-md-6 offset-md-3">
         <div class="card login-logout-tab">
             <div class="card-header">
 
@@ -14,7 +17,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href='/Identity/Account/Register'>Sign Up</a>
                     </li>
-
                 </ul>
 
                 <div class="card-content">
@@ -22,7 +24,6 @@
                         @RenderBody()
                     </div>
                 </div>
-
 
             </div>
         </div>
