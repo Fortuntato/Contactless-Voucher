@@ -11,13 +11,17 @@ for details on configuring this project to bundle and minify static web assets. 
     #DBE4E3 light cold grey
 */
 
+/*Cut empty space on the right in mobile version*/
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
     font-family: 'Raleway', sans-serif;
     color: #DBE4E3;
     background-color: #080E22;
-    /*margin: 15px;*/
 }
 
 /* Wrapping element */
