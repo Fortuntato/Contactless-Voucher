@@ -1,8 +1,23 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
+
+/*
+    Site main colour palette:
+    #080E22 dark blue
+    #0016A1 medium dark blue
+    #0016A1 blue
+    #94DBED light blue 
+    #F2F2F2 light cream grey 
+    #DBE4E3 light cold grey
+*/
+
 body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
+    font-family: 'Raleway', sans-serif;
+    color: #DBE4E3;
+    background-color: #080E22;
+    /*margin: 15px;*/
 }
 
 /* Wrapping element */
@@ -10,6 +25,11 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.form-control {
+    background-color: #d9edf700;
+    color: #DBE4E3;
 }
 
 /* Carousel */
@@ -52,13 +72,13 @@ div.login-logout-tab li.nav-item {
 }
 
 div.login-logout-tab a.nav-link {
-    font-size: 25px;
+    font-family: 'Raleway', sans-serif;
     color: #495057;
     text-align: center;
 }
 
 div.card-content {
-    padding: 10px 20px;
+    padding: 10px 10px;
 }
 
 /*login form*/
@@ -67,12 +87,62 @@ div.login-form-icon {
 }
 
 
-div.login-logout-tab a.nav-link{
-    font-size: 25px;
-    color: cornflowerblue;
+div.login-logout-tab a.nav-link {
+    font-size: 14px;
+    color: #DBE4E3;
     text-align: center;
+    font-weight: bold;
 }
 
 .active {
-    background-color:lightgreen;
+    background-color: #d9edf724;
+}
+
+
+.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: #d9edf724;
+}
+
+/*Make the login and register button with blue shadow*/
+.btn-shadow {
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    height: 40px;
+    text-align: center;
+    background-size: 300% 100%;
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-image: linear-gradient(to right, #04BEFE, #0016A1, #0016A1, #3BD7FF);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+    color: #DBE4E3;
+}
+
+/*Override default hover color value*/
+.btn-default:hover {
+    color: #DBE4E3;
+}
+
+    .btn-shadow:hover {
+        background-position: 100% 0;
+        moz-transition: all .4s ease-in-out;
+        -o-transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
+    }
+
+    .btn-shadow:focus {
+        outline: none;
+    }
+
+/*Style for the account page*/
+.accountPage{
+    margin-top: 55px; /*shift down from the menu bar*/
+    margin-left: 15px;
 }

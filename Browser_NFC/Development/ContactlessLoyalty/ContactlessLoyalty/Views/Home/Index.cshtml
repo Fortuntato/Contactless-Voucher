@@ -1,3 +1,132 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+    <div class="accountPage">
+
+        <h1>This is the NFC Page</h1>
+
+        <input type="text" id="writeText" name="label" value="NFC"><br><br>
+
+        <button id="scanButton" class="btn-shadow">Scan</button>
+        <button id="writeButton" class="btn-shadow">Write</button>
+        <br />
+        <p id="scannedValue">Written text</p>
+        <div id="jsonData"></div>
+
+
+
+    </div>
+
+<script>
+
+    function runNFC() {
+        console.log("NFC Read On");
+        new WebNFC(scan).read(read);
+    }
+
+
+    scanButton.addEventListener("click", async () => {
+        console.log("User clicked scan button");
+
+        try {
+            const reader = new NDEFReader();
+            await reader.scan();
+            console.log("> Scan started");
+
+            reader.addEventListener("error", (event) => {
+                console.log(`Argh! ${event.message}`);
+            });
+
+
+
+            reader.addEventListener("reading", ({ message, serialNumber }) => {
+
+                var text = "";
+                const decoder = new TextDecoder();
+                var newLine = "\n";
+
+                for (const record of message.records) {
+                    switch (record.recordType) {
+                        case "empty":
+                            text += newLine + "(empty case)";
+                            break;
+                        case "text":
+                            text += newLine + decoder.decode(record.data) + "(text case)";
+                            break;
+                        case "url":
+                            text += newLine + decoder.decode(record.data) + "URL case";
+                            break;
+                        case "smart-poster":
+                            text += newLine + decoder.decode(record.data) + "(smart poster case)";
+                            break;
+                        case "absolute-url":
+                            text += newLine + decoder.decode(record.data) + "(absolute URL)";
+                            break;
+                        case "mime":
+
+                            if (record.mediaType === 'application/json') {
+                                const json = JSON.parse(decoder.decode(record.data));
+                                console.log(json);
+                                text = decoder.decode(record.data);
+                                // To display json object inside html page
+                                var mainContainer = document.getElementById("jsonData");
+                                    var div = document.createElement("div");
+                                    div.innerHTML = "Name: " + json.name + " Position: " + json.position;
+                                    mainContainer.appendChild(div);
+
+                            }
+                            break;
+                        case "unknown":
+                            text += newLine + decoder.decode(record.data) + "(UNKNOWN)";
+                        default:
+                            text += newLine + "Something unexpected: " + record
+                            break;
+                    }
+                }
+
+                console.log(`> Serial Number: ${serialNumber}`);
+                console.log(`> Records: (${message.records.length})`);
+                document.getElementById("scannedValue").innerHTML = text;
+            });
+        } catch (error) {
+            console.log("Argh! " + error);
+        }
+    });
+
+    writeButton.addEventListener("click", async () => {
+        console.log("User clicked write button");
+
+        try {
+            const writer = new NDEFWriter();
+            const encoder = new TextEncoder();
+
+            //var textToWrite = document.getElementById("writeText").value;
+            //console.log("Writing:" + textToWrite);
+            //await writer.write(textToWrite);
+
+            writer.write({
+                records: [
+                    {
+                        recordType: "mime",
+                        mediaType: "application/json",
+                        data: encoder.encode(JSON.stringify({
+                            name: "Ciro Immobile",
+                            position: "Striker"
+                        }))
+                    },
+                    {
+                        recordType: "mime",
+                        mediaType: "application/json",
+                        data: encoder.encode(JSON.stringify({
+                            name: "Lucas Leiva",
+                            position: "Midfielder"
+                        }))
+                    }]
+            });
+
+            console.log("> Message written");
+        } catch (error) {
+            console.log("Argh! " + error);
+        }
+    });
+</script>

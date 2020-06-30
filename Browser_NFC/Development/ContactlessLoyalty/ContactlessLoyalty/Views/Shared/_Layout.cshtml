@@ -19,6 +19,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     </environment>
 </head>
 <body>
@@ -47,21 +48,11 @@
             </div>
         </nav>
     }
-    else
-    {
-        @*<header class="navbar-header">*@
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <h3 style="color:white; align-items:center">
-                    Welcome to Contactless Loyalty!
-                </h3>
-            </div>
-        @*</header>*@
-    }
 
     <partial name="_CookieConsentPartial" />
 
     @RenderBody()
-    <hr />
+
     <footer>
         <p>&copy; 2020 - ContactlessLoyalty</p>
     </footer>
