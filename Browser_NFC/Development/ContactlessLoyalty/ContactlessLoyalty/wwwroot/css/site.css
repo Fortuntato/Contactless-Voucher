@@ -5,7 +5,7 @@ for details on configuring this project to bundle and minify static web assets. 
     Site main colour palette:
     #080E22 dark blue
     #0016A1 medium dark blue
-    #0016A1 blue
+    #0D3ECA blue
     #94DBED light blue 
     #F2F2F2 light cream grey 
     #DBE4E3 light cold grey
@@ -133,20 +133,45 @@ div.login-logout-tab a.nav-link {
     color: #DBE4E3;
 }
 
-    .btn-shadow:hover {
-        background-position: 100% 0;
-        moz-transition: all .4s ease-in-out;
-        -o-transition: all .4s ease-in-out;
-        -webkit-transition: all .4s ease-in-out;
-        transition: all .4s ease-in-out;
-    }
+.btn-shadow:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
 
-    .btn-shadow:focus {
-        outline: none;
-    }
+.btn-shadow:focus {
+    outline: none;
+}
 
 /*Style for the account page*/
-.accountPage{
+.accountPage {
     margin-top: 55px; /*shift down from the menu bar*/
     margin-left: 15px;
 }
+
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #0016a175;
+}
+
+.navbar-toggle {
+    border: 0px;
+}
+
+.navbar-inverse {
+    background-image: linear-gradient(to right, #0016A1, #0D3ECA, #3BD7FF);
+    align-content: center;
+}
+
+    .navbar-inverse .navbar-brand {
+        color: #DBE4E3;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #DBE4E3;
+    }
+
+    .navbar-inverse .btn-link {
+        color: #DBE4E3;
+    }
