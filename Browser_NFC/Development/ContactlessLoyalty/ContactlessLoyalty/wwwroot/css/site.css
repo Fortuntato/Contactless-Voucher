@@ -19,7 +19,7 @@ html, body {
 body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Raleway', Calibri, sans-serif;
     color: #DBE4E3;
     background-color: #080E22;
 }
