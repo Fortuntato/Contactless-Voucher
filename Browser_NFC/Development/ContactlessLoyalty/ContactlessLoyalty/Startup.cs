@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Routing.Matching;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ContactlessLoyalty.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactlessLoyalty
 {
@@ -35,6 +37,9 @@ namespace ContactlessLoyalty
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<DashboardContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("AuthenticationContextConnection")));
+
             services.AddRazorPages();
         }
 
@@ -59,7 +64,7 @@ namespace ContactlessLoyalty
             app.UseAuthentication();
 
             app.UseAuthorization();
-            
+
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute(
