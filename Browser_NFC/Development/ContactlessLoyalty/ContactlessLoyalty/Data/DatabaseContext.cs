@@ -23,9 +23,11 @@ namespace ContactlessLoyalty.Models
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            builder.Entity<IdentityUser>().ToTable("Users").Property(p => p.Id).HasColumnName("UserId");
-            
-
+            //builder.Entity<IdentityUser>().Ignore("PhoneNumberConfirmed")
+            //    .Ignore("TwoFactorEnabled")
+            //    .Ignore("LockoutEnd")
+            //    .Ignore("AccessFailedCount")
+            //    .Ignore("EmailConfirmed");
         }
 
         public DbSet<Dashboard> Dashboard { get; set; }
