@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContactlessLoyalty.Migrations
 {
-    [DbContext(typeof(AuthenticationContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20200628183847_Initial-Create")]
     partial class InitialCreate
     {
