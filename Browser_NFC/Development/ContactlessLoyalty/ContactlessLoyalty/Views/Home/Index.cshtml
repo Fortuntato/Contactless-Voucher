@@ -1,28 +1,53 @@
-﻿@{
+﻿@*@IndexModel;*@
+
+@{
     ViewData["Title"] = "Home Page";
 }
-    <div class="accountPage">
+<div class="accountPage">
 
-        <h1>This is the NFC Page</h1>
+    <h1>This is the NFC Page</h1>
 
-        <input type="text" id="writeText" name="label" value="NFC"><br><br>
-
-        <button id="scanButton" class="btn-shadow">Scan</button>
-        <button id="writeButton" class="btn-shadow">Write</button>
-        <br />
-        <p id="scannedValue">Written text</p>
-        <div id="jsonData"></div>
-
-
-
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 stampIcon" id="firstStamp">
+                <img src="~/images/avataaars.svg" alt="" id="firstStamp1"/>
+            </div>
+            <div class="col-xs-4 stampIcon" id="SecondStamp">
+                <img src="~/images/avataaars.svg" alt="" id="firstStamp2"/>
+            </div>
+            <div class="col-xs-4 stampIcon" id="ThirdStamp">
+                <img src="~/images/avataaars.svg" alt="" />
+            </div>
+        </div>
     </div>
 
+    <input type="text" id="writeText" name="label" value="NFC"><br><br>
+
+    <button id="scanButton" class="btn-shadow">Scan</button>
+    <button id="writeButton" class="btn-shadow">Write</button>
+    <br />
+
+    <div id="jsonData"></div>
+
+</div>
 <script>
 
     function runNFC() {
         console.log("NFC Read On");
         new WebNFC(scan).read(read);
     }
+
+    //jQuery("stampIcon").click(function() {
+    //    var contentPanelId = jQuery(this).attr("id");
+    //    console.log("id" + contentPanelId);
+    //});
+
+    var elements = document.getElementsByClassName("stampIcon");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("click", (event) => {
+            console.log("Icon clicked! " + elements);
+            });
+}
 
 
     scanButton.addEventListener("click", async () => {
@@ -70,9 +95,9 @@
                                 text = decoder.decode(record.data);
                                 // To display json object inside html page
                                 var mainContainer = document.getElementById("jsonData");
-                                    var div = document.createElement("div");
-                                    div.innerHTML = "Name: " + json.name + " Position: " + json.position;
-                                    mainContainer.appendChild(div);
+                                var div = document.createElement("div");
+                                div.innerHTML = "Name: " + json.name + " Position: " + json.position;
+                                mainContainer.appendChild(div);
 
                             }
                             break;

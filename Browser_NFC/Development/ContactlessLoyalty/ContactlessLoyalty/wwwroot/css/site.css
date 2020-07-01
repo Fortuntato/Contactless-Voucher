@@ -175,3 +175,12 @@ div.login-logout-tab a.nav-link {
     .navbar-inverse .btn-link {
         color: #DBE4E3;
     }
+
+.col-xs-6 {
+    padding-left: 0px;
+}
+
+
+.container{
+    display:grid;
+}
