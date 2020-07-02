@@ -45,7 +45,7 @@ namespace ContactlessLoyaltyWebApp.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Movie");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

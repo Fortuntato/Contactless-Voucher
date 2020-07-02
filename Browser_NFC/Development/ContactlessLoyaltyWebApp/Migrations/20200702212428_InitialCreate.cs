@@ -7,7 +7,7 @@ namespace ContactlessLoyaltyWebApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Movie",
+                name: "Users",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -20,14 +20,14 @@ namespace ContactlessLoyaltyWebApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movie", x => x.ID);
+                    table.PrimaryKey("PK_Users", x => x.ID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Movie");
+                name: "Users");
         }
     }
 }

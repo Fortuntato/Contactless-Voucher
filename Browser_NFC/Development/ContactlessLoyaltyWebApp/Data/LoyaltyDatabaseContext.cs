@@ -14,6 +14,6 @@ namespace ContactlessLoyaltyWebApp.Data
         {
         }
 
-        public DbSet<UserModel> Movie { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }

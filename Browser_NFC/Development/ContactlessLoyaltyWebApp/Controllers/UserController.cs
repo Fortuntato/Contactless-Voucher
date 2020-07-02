@@ -10,11 +10,11 @@ using ContactlessLoyaltyWebApp.Models;
 
 namespace ContactlessLoyaltyWebApp.Controllers
 {
-    public class UserModelsController : Controller
+    public class UserController : Controller
     {
         private readonly LoyaltyDatabaseContext _context;
 
-        public UserModelsController(LoyaltyDatabaseContext context)
+        public UserController(LoyaltyDatabaseContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
         // GET: UserModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Movie.ToListAsync());
+            return View(await _context.Users.ToListAsync());
         }
 
         // GET: UserModels/Details/5
@@ -33,7 +33,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.Movie
+            var userModel = await _context.Users
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (userModel == null)
             {
@@ -73,7 +73,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.Movie.FindAsync(id);
+            var userModel = await _context.Users.FindAsync(id);
             if (userModel == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
                 return NotFound();
             }
 
-            var userModel = await _context.Movie
+            var userModel = await _context.Users
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (userModel == null)
             {
@@ -139,15 +139,15 @@ namespace ContactlessLoyaltyWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userModel = await _context.Movie.FindAsync(id);
-            _context.Movie.Remove(userModel);
+            var userModel = await _context.Users.FindAsync(id);
+            _context.Users.Remove(userModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserModelExists(int id)
         {
-            return _context.Movie.Any(e => e.ID == id);
+            return _context.Users.Any(e => e.ID == id);
         }
     }
 }
