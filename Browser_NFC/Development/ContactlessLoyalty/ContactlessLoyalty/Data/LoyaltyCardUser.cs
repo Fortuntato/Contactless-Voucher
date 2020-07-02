@@ -5,10 +5,11 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Threading.Tasks;
+    using ContactlessLoyalty.Models;
     using Microsoft.AspNetCore.Identity;
 
     // Add profile data for application users by adding properties to the AccountContactlessLoyaltyUser class
-    public class AccountContactlessLoyaltyUser : IdentityUser
+    public class LoyaltyCardUser : IdentityUser
     {
         [PersonalData]
         [Column(TypeName = "nvarchar(20)")]
@@ -21,5 +22,8 @@
         [PersonalData]
         [Column(TypeName = "nvarchar(20)")]
         public string MobilePhoneNumber { get; set; }
+
+        [Column(TypeName = "nvarchar(40)")]
+        public string CardID { get; set; }
     }
 }

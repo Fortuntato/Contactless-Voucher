@@ -20,5 +20,8 @@ namespace ContactlessLoyalty.Models
         [PersonalData]
         [Column(TypeName = "nvarchar(20)")]
         public string MobilePhoneNumber { get; set; }
+
+
+        public List<Card> CardID { get; set; }
     }
 }
