@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width" initial-scale="1.0"/>
     <title>@ViewData["Title"] - ContactlessLoyalty</title>
 
     <environment include="Development">
@@ -18,29 +18,37 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ContactlessLoyalty</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                </ul>
-            </div>
+    <header>
+        <div id="banner">
+            <img src="~/images/banner1.svg" />
         </div>
-    </nav>
+    </header>
+    <div>
+        <nav class="navbar navbar-inverse ">
+            @*navbar-fixed-top*@
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ContactlessLoyalty</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
  
     @RenderBody()
 
-    <footer>
+    <footer class="container-fluid footer navbar-fixed-bottom footer-nav">
         <p>&copy; 2020 - ContactlessLoyalty</p>
     </footer>
 
