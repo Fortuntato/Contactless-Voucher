@@ -16,10 +16,10 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
+        private readonly SignInManager<LoyaltyCardUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<AccountContactlessLoyaltyUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<LoyaltyCardUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
