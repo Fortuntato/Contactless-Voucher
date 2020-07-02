@@ -60,7 +60,10 @@ body {
     }
 }
 
-
+/*Shift the contents down because of the navigation bar*/
+.hasNavigation{
+    margin-top: 55px;
+}
 
 /*for tab control*/
 div.login-logout-tab div.card-header {
