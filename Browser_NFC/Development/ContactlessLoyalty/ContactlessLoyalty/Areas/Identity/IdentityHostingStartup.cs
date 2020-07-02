@@ -1,6 +1,6 @@
 ﻿using System;
-using ContactlessLoyalty.Areas.Identity.Data;
-using ContactlessLoyalty.Models;
+using ContactlessLoyalty.Data;
+using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ContactlessLoyalty.Models
+namespace ContactlessLoyalty.Data
 {
     public class LoyaltyUser
     {
@@ -21,7 +21,7 @@ namespace ContactlessLoyalty.Models
         [Column(TypeName = "nvarchar(20)")]
         public string MobilePhoneNumber { get; set; }
 
-
-        public List<Card> CardID { get; set; }
+        [Column(TypeName = "nvarchar(40)")]
+        public string CardID { get; set; }
     }
 }

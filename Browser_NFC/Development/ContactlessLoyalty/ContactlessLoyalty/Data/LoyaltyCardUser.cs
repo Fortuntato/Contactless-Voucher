@@ -1,11 +1,11 @@
-﻿namespace ContactlessLoyalty.Areas.Identity.Data
+﻿namespace ContactlessLoyalty.Data
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Threading.Tasks;
-    using ContactlessLoyalty.Models;
+    using ContactlessLoyalty.Data;
     using Microsoft.AspNetCore.Identity;
 
     // Add profile data for application users by adding properties to the AccountContactlessLoyaltyUser class

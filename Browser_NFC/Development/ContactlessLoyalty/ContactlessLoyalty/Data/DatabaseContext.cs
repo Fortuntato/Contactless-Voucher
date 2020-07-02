@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ContactlessLoyalty.Areas.Identity.Data;
+using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactlessLoyalty.Models
+namespace ContactlessLoyalty.Data
 {
     public class DatabaseContext : IdentityDbContext<LoyaltyCardUser>
     {
@@ -24,6 +24,6 @@ namespace ContactlessLoyalty.Models
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<Card> LoyaltyCard { get; set; }
+        public DbSet<LoyaltyCard> LoyaltyCard { get; set; }
     }
 }

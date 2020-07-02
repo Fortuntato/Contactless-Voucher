@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContactlessLoyalty;
-using ContactlessLoyalty.Models;
+using ContactlessLoyalty.Data;
 
 namespace ContactlessLoyalty.Controllers
 {
-    public class DashboardController : Controller
+    public class CardController : Controller
     {
         private readonly DatabaseContext _context;
 
-        public DashboardController(DatabaseContext context)
+        public CardController(DatabaseContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Card dashboard)
+        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] LoyaltyCard dashboard)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Card dashboard)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] LoyaltyCard dashboard)
         {
             if (id != dashboard.CardID)
             {

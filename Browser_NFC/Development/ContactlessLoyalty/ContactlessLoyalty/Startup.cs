@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ContactlessLoyalty;
 using Microsoft.EntityFrameworkCore;
-using ContactlessLoyalty.Models;
+using ContactlessLoyalty.Data;
 
 namespace ContactlessLoyalty
 {

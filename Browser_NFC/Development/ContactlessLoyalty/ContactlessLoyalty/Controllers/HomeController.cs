@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using ContactlessLoyalty.Models;
+    using ContactlessLoyalty.Data;
     using Microsoft.AspNetCore.Authorization;
     [Authorize]
     public class HomeController : Controller

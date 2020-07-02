@@ -1,6 +1,6 @@
 using System;
 
-namespace ContactlessLoyalty.Models
+namespace ContactlessLoyalty.Data
 {
     public class ErrorViewModel
     {
