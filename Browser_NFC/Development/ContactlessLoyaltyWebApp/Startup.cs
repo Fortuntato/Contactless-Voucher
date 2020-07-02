@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ContactlessLoyaltyWebApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactlessLoyaltyWebApp
 {
@@ -24,6 +26,9 @@ namespace ContactlessLoyaltyWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<LoyaltyDatabaseContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("LoyaltyDatabaseContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
