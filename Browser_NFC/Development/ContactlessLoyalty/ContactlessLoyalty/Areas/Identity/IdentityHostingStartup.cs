@@ -21,7 +21,7 @@ namespace ContactlessLoyalty.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthenticationContextConnection")));
 
-                services.AddDefaultIdentity<LoyaltyCardUser>(
+                services.AddDefaultIdentity<AccountContactlessLoyaltyUser>(
                     options =>
                     {
                         options.SignIn.RequireConfirmedEmail = false;
