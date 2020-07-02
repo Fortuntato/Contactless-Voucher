@@ -10,11 +10,11 @@ using ContactlessLoyalty.Data;
 
 namespace ContactlessLoyalty.Controllers
 {
-    public class CardController : Controller
+    public class DashboardController : Controller
     {
         private readonly DatabaseContext _context;
 
-        public CardController(DatabaseContext context)
+        public DashboardController(DatabaseContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace ContactlessLoyalty.Controllers
         // GET: Dashboards
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LoyaltyCard.ToListAsync());
+            return View(await _context.Dashboard.ToListAsync());
         }
 
         // GET: Dashboards/Details/5
@@ -33,8 +33,8 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound();
             }
 
-            var dashboard = await _context.LoyaltyCard
-                .FirstOrDefaultAsync(m => m.CardID == id);
+            var dashboard = await _context.Dashboard
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (dashboard == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] LoyaltyCard dashboard)
+        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Dashboard dashboard)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound();
             }
 
-            var dashboard = await _context.LoyaltyCard.FindAsync(id);
+            var dashboard = await _context.Dashboard.FindAsync(id);
             if (dashboard == null)
             {
                 return NotFound();
@@ -86,9 +86,9 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] LoyaltyCard dashboard)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Dashboard dashboard)
         {
-            if (id != dashboard.CardID)
+            if (id != dashboard.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace ContactlessLoyalty.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DashboardExists(dashboard.CardID))
+                    if (!DashboardExists(dashboard.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +124,8 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound();
             }
 
-            var dashboard = await _context.LoyaltyCard
-                .FirstOrDefaultAsync(m => m.CardID == id);
+            var dashboard = await _context.Dashboard
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (dashboard == null)
             {
                 return NotFound();
@@ -139,15 +139,15 @@ namespace ContactlessLoyalty.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dashboard = await _context.LoyaltyCard.FindAsync(id);
-            _context.LoyaltyCard.Remove(dashboard);
+            var dashboard = await _context.Dashboard.FindAsync(id);
+            _context.Dashboard.Remove(dashboard);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DashboardExists(int id)
         {
-            return _context.LoyaltyCard.Any(e => e.CardID == id);
+            return _context.Dashboard.Any(e => e.Id == id);
         }
     }
 }

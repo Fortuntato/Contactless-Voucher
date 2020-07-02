@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ContactlessLoyalty.Data.LoyaltyCard>
+﻿@model IEnumerable<ContactlessLoyalty.Data.Dashboard>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,16 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserID)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastStampDateTime)
+                @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalNumVoucherCollected)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumOfStamps)
+                @Html.DisplayNameFor(model => model.Genre)
             </th>
             <th></th>
         </tr>
@@ -32,21 +32,21 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserID)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastStampDateTime)
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalNumVoucherCollected)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NumOfStamps)
+                @Html.DisplayFor(modelItem => item.Genre)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CardID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CardID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CardID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

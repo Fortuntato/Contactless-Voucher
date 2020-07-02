@@ -1,4 +1,4 @@
-﻿@model ContactlessLoyalty.Data.LoyaltyCard
+﻿@model ContactlessLoyalty.Data.Dashboard
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,33 +13,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.UserID)
+            @Html.DisplayFor(model => model.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LastStampDateTime)
+            @Html.DisplayNameFor(model => model.ReleaseDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastStampDateTime)
+            @Html.DisplayFor(model => model.Genre)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TotalNumVoucherCollected)
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TotalNumVoucherCollected)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumOfStamps)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumOfStamps)
+            @Html.DisplayFor(model => model.Title)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="CardID" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

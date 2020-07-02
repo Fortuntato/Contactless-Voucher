@@ -1,4 +1,4 @@
-﻿@model ContactlessLoyalty.Data.LoyaltyCard
+﻿@model ContactlessLoyalty.Data.Dashboard
 
 @{
     ViewData["Title"] = "Details";
@@ -12,32 +12,26 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.UserID)
+            @Html.DisplayFor(model => model.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.LastStampDateTime)
+            @Html.DisplayNameFor(model => model.ReleaseDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.LastStampDateTime)
+            @Html.DisplayFor(model => model.Genre)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TotalNumVoucherCollected)
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TotalNumVoucherCollected)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumOfStamps)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumOfStamps)
+            @Html.DisplayFor(model => model.Title)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.CardID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
