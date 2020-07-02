@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
+
 @using ContactlessLoyalty.Data
-@inject SignInManager<LoyaltyCardUser> SignInManager
-@inject UserManager<LoyaltyCardUser> UserManager
+@inject SignInManager<AccountContactlessLoyaltyUser> SignInManager
+@inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using ContactlessLoyalty.Data;
-using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -21,7 +20,7 @@ namespace ContactlessLoyalty.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthenticationContextConnection")));
 
-                services.AddDefaultIdentity<LoyaltyCardUser>(
+                services.AddDefaultIdentity<AccountContactlessLoyaltyUser>(
                     options =>
                     {
                         options.SignIn.RequireConfirmedEmail = false;

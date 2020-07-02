@@ -21,7 +21,5 @@ namespace ContactlessLoyalty.Data
         [Column(TypeName = "nvarchar(20)")]
         public string MobilePhoneNumber { get; set; }
 
-        [Column(TypeName = "nvarchar(40)")]
-        public string CardID { get; set; }
     }
 }

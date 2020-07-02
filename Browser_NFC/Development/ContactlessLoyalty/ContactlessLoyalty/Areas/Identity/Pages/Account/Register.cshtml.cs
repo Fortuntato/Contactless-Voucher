@@ -16,14 +16,14 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<LoyaltyCardUser> _signInManager;
-        private readonly UserManager<LoyaltyCardUser> _userManager;
+        private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
+        private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<LoyaltyCardUser> userManager,
-            SignInManager<LoyaltyCardUser> signInManager,
+            UserManager<AccountContactlessLoyaltyUser> userManager,
+            SignInManager<AccountContactlessLoyaltyUser> signInManager,
             ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
@@ -83,7 +83,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new LoyaltyCardUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.PhoneNumber, MobilePhoneNumber = Input.PhoneNumber, CardID = Guid.NewGuid().ToString()  };
+                var user = new AccountContactlessLoyaltyUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.PhoneNumber, MobilePhoneNumber = Input.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
