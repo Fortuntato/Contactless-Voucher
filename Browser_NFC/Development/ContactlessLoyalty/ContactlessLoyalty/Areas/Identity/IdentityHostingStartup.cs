@@ -17,7 +17,7 @@ namespace ContactlessLoyalty.Areas.Identity
         {
             builder.ConfigureServices((context, services) =>
             {
-                services.AddDbContext<AuthenticationContext>(options =>
+                services.AddDbContext<DatabaseContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthenticationContextConnection")));
 
@@ -30,7 +30,7 @@ namespace ContactlessLoyalty.Areas.Identity
                         options.Password.RequireUppercase = false;
                         options.Password.RequireNonAlphanumeric = false;
                     }
-                ).AddEntityFrameworkStores<AuthenticationContext>();
+                ).AddEntityFrameworkStores<DatabaseContext>();
             });
         }
     }

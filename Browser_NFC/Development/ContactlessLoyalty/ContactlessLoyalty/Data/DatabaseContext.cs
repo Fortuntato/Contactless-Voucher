@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContactlessLoyalty.Models
 {
-    public class AuthenticationContext : IdentityDbContext<AccountContactlessLoyaltyUser>
+    public class DatabaseContext : IdentityDbContext<AccountContactlessLoyaltyUser>
     {
-        public AuthenticationContext(DbContextOptions<AuthenticationContext> options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
         }
@@ -22,6 +22,14 @@ namespace ContactlessLoyalty.Models
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            //builder.Entity<IdentityUser>().Ignore("PhoneNumberConfirmed")
+            //    .Ignore("TwoFactorEnabled")
+            //    .Ignore("LockoutEnd")
+            //    .Ignore("AccessFailedCount")
+            //    .Ignore("EmailConfirmed");
         }
+
+        public DbSet<Dashboard> Dashboard { get; set; }
     }
 }
