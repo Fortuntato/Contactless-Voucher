@@ -20,7 +20,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Create", "User");
         }
 
         public IActionResult Privacy()
