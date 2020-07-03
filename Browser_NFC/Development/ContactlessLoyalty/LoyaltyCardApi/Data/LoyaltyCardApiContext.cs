@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using LoyaltyCardApi.Models;
+using ContactlessLoyalty.Data;
 
 namespace LoyaltyCardApi.Data
 {
@@ -15,5 +16,6 @@ namespace LoyaltyCardApi.Data
         }
 
         public DbSet<LoyaltyCardApi.Models.LoyaltyDetails> Dashboard { get; set; }
+
     }
 }
