@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ContactlessLoyalty;
 using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ContactlessLoyalty.Controllers
 {
@@ -15,8 +17,6 @@ namespace ContactlessLoyalty.Controllers
     {
         private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
         private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
-
-
         private readonly DatabaseContext _context;
 
         public DashboardController(DatabaseContext context, UserManager<AccountContactlessLoyaltyUser> userManager,
@@ -30,6 +30,18 @@ namespace ContactlessLoyalty.Controllers
         // GET: Dashboards
         public async Task<IActionResult> Index()
         {
+            // Scenario where the user has only one card at the moment
+            var user = await _userManager.GetUserAsync(User);
+
+            List<Dashboard> userCards = await _context.Dashboard.ToListAsync();
+            foreach (Dashboard dash in userCards)
+            {
+                if(dash.User == user)
+                {
+                    return View(dash);
+                }
+            }
+
             return View(await _context.Dashboard.ToListAsync());
         }
 

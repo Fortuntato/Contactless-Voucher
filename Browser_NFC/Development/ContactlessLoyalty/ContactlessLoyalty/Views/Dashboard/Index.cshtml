@@ -1,16 +1,28 @@
-﻿@model IEnumerable<ContactlessLoyalty.Data.Dashboard>
-
+﻿@*@model IEnumerable<ContactlessLoyalty.Data.Dashboard>*@
+@model ContactlessLoyalty.Data.Dashboard
 @{
     ViewData["Title"] = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AccountContactlessLoyaltyUser> SignInManager
+@inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
 <h2>Index</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+@for (int i = 0; i < Model.NumberOfStamps; i++)
+{
+    <div class="col-xs-4 stampIcon" id="firstStamp">
+        <img src="~/images/avataaars.svg" alt="" id="firstStamp1" onclick="readFunction()" />
+    </div>
+}
+
+
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -30,31 +42,32 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfVouchers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastStampDateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StoreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfStamps)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    </thead>*@
+@*<tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfVouchers)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastStampDateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StoreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfStamps)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
