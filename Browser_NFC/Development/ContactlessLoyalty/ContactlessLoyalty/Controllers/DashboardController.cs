@@ -62,7 +62,7 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NumberOfVouchers,LastStampDateTime,NumberOfStamps,Price")] Dashboard dashboard)
+        public async Task<IActionResult> Create([Bind("NumberOfVouchers,LastStampDateTime,NumberOfStamps,StoreName")] Dashboard dashboard)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumberOfVouchers,LastStampDateTime,NumberOfStamps,Price")] Dashboard dashboard)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NumberOfVouchers,LastStampDateTime,NumberOfStamps,StoreName")] Dashboard dashboard)
         {
             if (id != dashboard.Id)
             {
