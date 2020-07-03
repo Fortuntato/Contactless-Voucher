@@ -15,7 +15,7 @@ namespace ContactlessLoyalty.Data
 
         [DataType(DataType.DateTime)]
         public DateTime LastStampDateTime { get; set; }
-        public string NumberOfStamps { get; set; }
+        public int NumberOfStamps { get; set; }
         public decimal Price { get; set; }
 
     }
