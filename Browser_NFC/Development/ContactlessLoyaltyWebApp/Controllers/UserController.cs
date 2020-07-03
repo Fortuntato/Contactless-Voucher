@@ -7,11 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContactlessLoyaltyWebApp.Data;
 using ContactlessLoyaltyWebApp.Models;
+using System.Security.Cryptography;
+using ContactlessLoyaltyWebApp.Security;
 
 namespace ContactlessLoyaltyWebApp.Controllers
 {
     public class UserController : Controller
     {
+        private const int PBKDF2IterCount = 1000; // default for Rfc2898DeriveBytes
+        private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits
+        private const int SaltSize = 128 / 8; // 128 bits
+
         private readonly LoyaltyDatabaseContext _context;
 
         public UserController(LoyaltyDatabaseContext context)
@@ -49,16 +55,26 @@ namespace ContactlessLoyaltyWebApp.Controllers
             return View();
         }
 
-        // POST: UserModels/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: UserModels/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("ID,CardID,Name,MobilePhone,Password")] UserModel userModel)
+        public async Task<IActionResult> Register(UserModel userModel)
         {
             if (ModelState.IsValid)
             {
+                // Generate new Id for the user
+                userModel.ID = GenerateUserID();
+                // Hash the password before storing it into the DB
+                userModel.Password = Crypto.HashPassword(userModel.Password);
+
+                LoyaltyCardModel newCard = new LoyaltyCardModel();
+                newCard.ID = GenerateCardID();
+                newCard.User = userModel;
+
+                userModel.LoyaltyCard = newCard;
+
                 _context.Add(userModel);
+                _context.Add(newCard);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -148,6 +164,35 @@ namespace ContactlessLoyaltyWebApp.Controllers
         private bool UserModelExists(int id)
         {
             return _context.Users.Any(e => e.ID == id);
+        }
+
+        private bool CardModelExists(int id)
+        {
+            return _context.LoyaltyCards.Any(e => e.ID == id);
+        }
+
+        private int GenerateUserID()
+        {
+            Random rnd = new Random();
+            int id = rnd.Next(1, 1000000);
+            // Loop until a new id is created
+            while (UserModelExists(id))
+            {
+                id = rnd.Next(1, 1000000);
+            }
+            return id;
+        }
+
+        private int GenerateCardID()
+        {
+            Random rnd = new Random();
+            int id = rnd.Next(1, 1000000);
+            // Loop until a new id is created
+            while (UserModelExists(id))
+            {
+                id = rnd.Next(1, 1000000);
+            }
+            return id;
         }
     }
 }

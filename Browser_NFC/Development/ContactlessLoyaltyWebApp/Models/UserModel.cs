@@ -9,10 +9,10 @@ namespace ContactlessLoyaltyWebApp.Models
 {
     public class UserModel
     {
-        
+        [Key]
         public int ID { get; set; }
 
-        public List<LoyaltyCardModel> LoyaltyCard { get; set; }
+        public LoyaltyCardModel LoyaltyCard { get; set; }
 
         [MaxLength(20)]
         [DataType(DataType.Text)]
@@ -25,6 +25,7 @@ namespace ContactlessLoyaltyWebApp.Models
         [Required(ErrorMessage = "Please enter a valid Mobile Phone")]
         public string MobilePhone { get; set; }
 
+        [MaxLength(100)]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter a password")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "You must enter a longer password")]

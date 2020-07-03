@@ -15,5 +15,6 @@ namespace ContactlessLoyaltyWebApp.Data
         }
 
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<LoyaltyCardModel> LoyaltyCards { get; set; }
     }
 }
