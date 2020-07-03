@@ -184,3 +184,8 @@ div.login-logout-tab a.nav-link {
 .container{
     display:grid;
 }
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #0D3ECA;
+    opacity: 1;
+}
