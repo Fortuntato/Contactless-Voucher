@@ -90,6 +90,45 @@ namespace ContactlessLoyalty.Controllers
             return View(dashboard);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCard(Dashboard dashboard)
+        {
+            // Logic for creating a new card
+
+            // Get the user id to store with the new card
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+            dashboard.User = user;
+
+            // Everything to be set to 0 except the store name (Campaign)
+            dashboard.NumberOfStamps = 0;
+            dashboard.NumberOfVouchers = 0;
+            dashboard.LastStampDateTime = new DateTime();
+            dashboard.StoreName = "";
+
+
+
+
+
+            _context.Add(dashboard);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error);
+                }
+                return RedirectToAction(nameof(Index));
+            
+            return View(dashboard);
+        }
+
+
         // GET: Dashboards/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
