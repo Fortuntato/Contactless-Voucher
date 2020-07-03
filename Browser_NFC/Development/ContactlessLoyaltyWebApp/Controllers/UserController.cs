@@ -54,7 +54,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("ID,CardID,Name,MobilePhone,Password,UserRole")] UserModel userModel)
+        public async Task<IActionResult> Register([Bind("ID,CardID,Name,MobilePhone,Password")] UserModel userModel)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,CardID,Name,MobilePhone,Password,UserRole")] UserModel userModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CardID,Name,MobilePhone,Password")] UserModel userModel)
         {
             if (id != userModel.ID)
             {
