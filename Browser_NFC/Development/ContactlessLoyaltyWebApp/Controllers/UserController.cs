@@ -44,7 +44,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
         }
 
         // GET: UserModels/Create
-        public IActionResult Create()
+        public IActionResult Register()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace ContactlessLoyaltyWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CardID,Name,MobilePhone,Password,UserRole")] UserModel userModel)
+        public async Task<IActionResult> Register([Bind("ID,CardID,Name,MobilePhone,Password,UserRole")] UserModel userModel)
         {
             if (ModelState.IsValid)
             {
