@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace ContactlessLoyaltyWebApp.Models
         [Key]
         public int ID { get; set; }
 
+        [ForeignKey("CardID")]
         public LoyaltyCardModel LoyaltyCard { get; set; }
 
         [MaxLength(20)]

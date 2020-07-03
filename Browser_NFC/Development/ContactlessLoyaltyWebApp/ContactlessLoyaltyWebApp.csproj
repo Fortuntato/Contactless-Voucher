@@ -7,10 +7,11 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200702212428_InitialCreate.cs" />
     <Compile Remove="Migrations\20200702212428_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200703020025_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200703020025_InitialCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
