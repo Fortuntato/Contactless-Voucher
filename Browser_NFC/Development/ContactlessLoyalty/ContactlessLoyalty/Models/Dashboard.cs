@@ -18,5 +18,6 @@ namespace ContactlessLoyalty.Data
         public int NumberOfStamps { get; set; }
         public decimal Price { get; set; }
 
+        public AccountContactlessLoyaltyUser User { get; set; }
     }
 }

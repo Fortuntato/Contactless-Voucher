@@ -4,14 +4,16 @@ using ContactlessLoyalty.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContactlessLoyalty.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200703050321_UpdateDashboardProperties")]
+    partial class UpdateDashboardProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,6 +99,9 @@ namespace ContactlessLoyalty.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AccountContactlessLoyaltyUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("LastStampDateTime")
                         .HasColumnType("datetime2");
 
@@ -109,12 +114,9 @@ namespace ContactlessLoyalty.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserIdId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserIdId");
+                    b.HasIndex("AccountContactlessLoyaltyUserId");
 
                     b.ToTable("Dashboard");
                 });
@@ -256,9 +258,9 @@ namespace ContactlessLoyalty.Migrations
 
             modelBuilder.Entity("ContactlessLoyalty.Data.Dashboard", b =>
                 {
-                    b.HasOne("ContactlessLoyalty.Data.AccountContactlessLoyaltyUser", "UserId")
+                    b.HasOne("ContactlessLoyalty.Data.AccountContactlessLoyaltyUser", null)
                         .WithMany("CardDashboards")
-                        .HasForeignKey("UserIdId");
+                        .HasForeignKey("AccountContactlessLoyaltyUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

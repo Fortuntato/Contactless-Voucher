@@ -7,16 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContactlessLoyalty;
 using ContactlessLoyalty.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace ContactlessLoyalty.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
+        private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
+
+
         private readonly DatabaseContext _context;
 
-        public DashboardController(DatabaseContext context)
+        public DashboardController(DatabaseContext context, UserManager<AccountContactlessLoyaltyUser> userManager,
+            SignInManager<AccountContactlessLoyaltyUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Dashboards
@@ -58,6 +66,16 @@ namespace ContactlessLoyalty.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Get the user id to store with the new card
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+                    
+                dashboard.User = user;
+
+
                 _context.Add(dashboard);
                 try
                 {
