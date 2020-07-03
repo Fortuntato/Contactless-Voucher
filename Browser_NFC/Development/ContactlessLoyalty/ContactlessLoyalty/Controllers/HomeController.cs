@@ -13,7 +13,7 @@
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Create","Dashboard");
         }
 
         public IActionResult About()
@@ -33,6 +33,11 @@
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult LogOut()
+        {
+            return RedirectToAction("Create", "Dashboard");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -54,12 +54,19 @@ namespace ContactlessLoyalty.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Dashboard dashboard)
+        public async Task<IActionResult> Create([Bind("Title,ReleaseDate,Genre,Price")] Dashboard dashboard)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(dashboard);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error);
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(dashboard);
