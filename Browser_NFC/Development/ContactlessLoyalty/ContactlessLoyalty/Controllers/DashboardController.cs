@@ -90,8 +90,6 @@ namespace ContactlessLoyalty.Controllers
             return View(dashboard);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateCard(Dashboard dashboard)
         {
             // Logic for creating a new card
@@ -108,11 +106,7 @@ namespace ContactlessLoyalty.Controllers
             dashboard.NumberOfStamps = 0;
             dashboard.NumberOfVouchers = 0;
             dashboard.LastStampDateTime = new DateTime();
-            dashboard.StoreName = "";
-
-
-
-
+            dashboard.StoreName = "Diagon Alley";
 
             _context.Add(dashboard);
                 try
@@ -123,9 +117,8 @@ namespace ContactlessLoyalty.Controllers
                 {
                     Console.WriteLine(error);
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Dashboard");
             
-            return View(dashboard);
         }
 
 
