@@ -4,13 +4,11 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
+<h2>Register new Customer</h2>
 
-<h4>UserModel</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
