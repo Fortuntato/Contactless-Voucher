@@ -11,7 +11,7 @@ namespace ContactlessLoyalty.Data
     public class Dashboard
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string NumberOfVouchers { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime LastStampDateTime { get; set; }

@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace ContactlessLoyalty.Data
 {
-    public class LoyaltyUser
-    {
-        [PersonalData]
-        [Column(TypeName = "nvarchar(20)")]
-        public string FirstName { get; set; }
+    //public class LoyaltyUser
+    //{
+    //    [PersonalData]
+    //    [Column(TypeName = "nvarchar(20)")]
+    //    public string FirstName { get; set; }
 
-        [PersonalData]
-        [Column(TypeName = "nvarchar(20)")]
-        public string LastName { get; set; }
+    //    [PersonalData]
+    //    [Column(TypeName = "nvarchar(20)")]
+    //    public string LastName { get; set; }
 
-        //[PersonalData]
-        //[Column(TypeName = "nvarchar(20)")]
-        //public string MobilePhoneNumber { get; set; }
+    //    //[PersonalData]
+    //    //[Column(TypeName = "nvarchar(20)")]
+    //    //public string MobilePhoneNumber { get; set; }
 
-    }
+    //}
 }

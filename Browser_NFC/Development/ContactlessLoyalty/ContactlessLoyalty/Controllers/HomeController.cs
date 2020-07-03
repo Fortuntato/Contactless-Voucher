@@ -35,11 +35,6 @@
             return View();
         }
 
-        public IActionResult LogOut()
-        {
-            return RedirectToAction("Create", "Dashboard");
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
