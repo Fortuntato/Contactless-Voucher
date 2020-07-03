@@ -17,9 +17,9 @@ namespace ContactlessLoyalty.Data
         [Column(TypeName = "nvarchar(20)")]
         public string LastName { get; set; }
 
-        [PersonalData]
-        [Column(TypeName = "nvarchar(20)")]
-        public string MobilePhoneNumber { get; set; }
+        //[PersonalData]
+        //[Column(TypeName = "nvarchar(20)")]
+        //public string MobilePhoneNumber { get; set; }
 
     }
 }
