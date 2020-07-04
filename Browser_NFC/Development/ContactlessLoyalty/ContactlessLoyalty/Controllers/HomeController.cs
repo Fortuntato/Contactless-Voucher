@@ -13,7 +13,7 @@
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index","Dashboard");
+            return RedirectToAction("Create","Dashboard");
         }
 
         public IActionResult About()

@@ -110,10 +110,10 @@ namespace ContactlessLoyalty.Controllers
             dashboard.User = user;
 
             // Everything to be set to 0 except the store name (Campaign)
-            dashboard.NumberOfStamps = 0;
+            dashboard.NumberOfStamps = 1;
             dashboard.NumberOfVouchers = 0;
-            dashboard.LastStampDateTime = new DateTime();
-            dashboard.StoreName = "Diagon Alley";
+            dashboard.LastStampDateTime = new DateTime(2013, 05, 26);
+            dashboard.StoreName = "Stadio Olimpico";
 
             _context.Add(dashboard);
                 try
