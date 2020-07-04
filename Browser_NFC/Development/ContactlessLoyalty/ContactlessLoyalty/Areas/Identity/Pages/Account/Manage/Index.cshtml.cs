@@ -23,7 +23,11 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        public string Username { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -40,10 +44,10 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
 
         private async Task LoadAsync(AccountContactlessLoyaltyUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            Username = userName;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
 
             Input = new InputModel
             {
@@ -77,13 +81,16 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            // Get the phone number saved from the database and check if change in the DB are needed
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
+                // Update the username along with the phone number since username field is checked for login
+                var setUsername = await _userManager.SetUserNameAsync(user, Input.PhoneNumber);
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                if (!setPhoneResult.Succeeded || !setUsername.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Unexpected error when trying to set phone number and username.";
                     return RedirectToPage();
                 }
             }

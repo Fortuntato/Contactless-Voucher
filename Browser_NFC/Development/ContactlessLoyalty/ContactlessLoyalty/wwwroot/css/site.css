@@ -17,7 +17,7 @@ html, body {
 }
 
 body {
-    /*padding-top: 50px;*/
+    padding-top: 50px;
     padding-bottom: 20px;
     font-family: 'Raleway', Calibri, sans-serif;
     color: #DBE4E3;
@@ -145,12 +145,11 @@ div.login-logout-tab a.nav-link {
     outline: none;
 }
 
-/*Style for the account page*/
-.accountPage {
-    margin-top: 55px; /*shift down from the menu bar*/
-    margin-left: 15px;
+.homeTopMargin {
+    margin-top: -50px; /*Shift up the home login page*/
 }
 
+/*Style for the account page*/
 .navbar-inverse .navbar-toggle:hover {
     background-color: #0016a175;
 }
@@ -194,6 +193,6 @@ footer {
     margin-left: 15px;
     position: absolute;
     bottom: 0;
-    width: 100%;
-    height: 2.5rem; /* Footer height */
+    width: 71%;
+    height: 4.5rem; /* Footer height */
 }
