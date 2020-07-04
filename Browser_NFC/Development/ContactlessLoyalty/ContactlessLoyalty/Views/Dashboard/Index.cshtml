@@ -17,7 +17,7 @@
     @for (int i = 0; i < Model.NumberOfStamps; i++)
     {
         <div class="col-xs-4 stampIcon">
-            <img src="~/images/avataaars.svg" alt="" id="stamp-@i" onclick="readFunction()" />
+            <img src="~/images/avataaars.svg" alt="" id="stamp-@i" onclick="readFunction('@i')" />
         </div>
     }
 
@@ -31,20 +31,20 @@
 }*@
 
 <script>
-    
+
     //var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
     //console.log(device);
     //console.log(navigator.userAgent.toLowerCase());
 
-    async function readFunction() {
+    async function readFunction(imageNumber) {
         try {
             const reader = new NDEFReader();
             await reader.scan();
             console.log("> Scan started");
-             alert('@TempData["First alert attempt"]');
+            //alert('First alert attempt');
             reader.addEventListener("error", (event) => {
                 console.log(`Argh! ${event.message}`);
-                 alert('@TempData["No NFC for youu!"]');
+                 alert('No NFC for youu!');
                 });
 
             reader.addEventListener("reading", ({ message, serialNumber }) => {
@@ -83,7 +83,7 @@
                                 //mainContainer.appendChild(div);
                                 console.log(document.getElementById("stamp-1"));
                                 console.log("User phone number " + @Model.User.PhoneNumber)
-                                document.getElementById("stamp-2").src = "https://image.flaticon.com/icons/svg/2935/2935679.svg";
+                                document.getElementById("stamp-" + imageNumber).src = "@Url.Content("/images/banner1.svg")";
                                 //document.getElementById("jsonData").value = "Something Example";
 
                             }
