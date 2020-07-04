@@ -19,8 +19,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
         private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
         private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        //private readonly IEmailSender _emailSender;
-
+        
         public RegisterModel(
             UserManager<AccountContactlessLoyaltyUser> userManager,
             SignInManager<AccountContactlessLoyaltyUser> signInManager,
@@ -29,7 +28,6 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            //_emailSender = emailSender;
         }
 
         [BindProperty]
@@ -52,6 +50,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             [Required]
             [Phone]
             [Display(Name = "Mobile Phone Number")]
+            //[RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -88,16 +87,6 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { userId = user.Id, code = code },
-                    //    protocol: Request.Scheme);
-
-                    //await _emailSender.SendEmailAsync(Input.PhoneNumber, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
