@@ -6,7 +6,6 @@
       "applicationUrl": "http://localhost:58144",
       "sslPort": 44387
     }
-
   },
   "profiles": {
     "IIS Express": {
@@ -14,7 +13,8 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Local"
-      }
+      },
+      "ancmHostingModel": "OutOfProcess"
     },
     "ContactlessLoyalty": {
       "commandName": "Project",

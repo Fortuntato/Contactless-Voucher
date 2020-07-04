@@ -3,17 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <!--<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>-->
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
     <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Remove="Migrations\20200701190237_InitialCreate.cs" />
     <Compile Remove="Migrations\20200701190237_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200701191750_InitialCreate.cs" />
     <Compile Remove="Migrations\20200701191750_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20200703034124_InitialCreation.cs" />
     <Compile Remove="Migrations\20200703034124_InitialCreation.Designer.cs" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
