@@ -212,5 +212,41 @@ namespace ContactlessLoyalty.Controllers
         {
             return _context.Dashboard.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> CollectStamp()
+        {
+            //Dashboard dashboard = new Dashboard();
+            // Get the user id to store with the new card
+            AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // Find detail of existing loyalty card of the person
+            Dashboard editDashboard = await _context.Dashboard
+                .FirstOrDefaultAsync(m => m.User.Id == user.Id);
+
+            // Get the storeName
+            editDashboard.LastStampDateTime = DateTime.Now.ToLocalTime();
+            editDashboard.NumberOfStamps += 1;
+            if (editDashboard.NumberOfStamps > 10)
+            {
+                editDashboard.NumberOfVouchers += 1;
+                editDashboard.NumberOfStamps = 1; //Starting from 0 now because otherwise user cannot enable nfc feature
+            }
+            
+            _context.Update(editDashboard);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error);
+            }
+            return RedirectToAction("Index", "Dashboard");
+        }
+
     }
 }

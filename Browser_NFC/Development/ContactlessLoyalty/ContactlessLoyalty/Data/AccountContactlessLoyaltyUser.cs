@@ -18,6 +18,8 @@
         [Column(TypeName = "nvarchar(20)")]
         public string LastName { get; set; }
 
+        //public DateTime RegistrationDate { get; set; }
+
         /// <summary>
         /// A list of possible cards associated to a customer
         /// </summary>

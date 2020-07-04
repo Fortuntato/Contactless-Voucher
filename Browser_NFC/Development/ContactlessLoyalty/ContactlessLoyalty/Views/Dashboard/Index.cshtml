@@ -85,6 +85,7 @@
                                 console.log("User phone number " + @Model.User.PhoneNumber)
                                 document.getElementById("stamp-" + imageNumber).src = "@Url.Content("/images/banner1.svg")";
                                 //document.getElementById("jsonData").value = "Something Example";
+                                window.location.href = '@Url.Action("CollectStamp", "Dashboard")';
 
                             }
                             break;
