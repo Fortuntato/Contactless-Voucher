@@ -83,7 +83,6 @@ namespace ContactlessLoyalty.Controllers
                     
                 dashboard.User = user;
 
-
                 _context.Add(dashboard);
                 try
                 {

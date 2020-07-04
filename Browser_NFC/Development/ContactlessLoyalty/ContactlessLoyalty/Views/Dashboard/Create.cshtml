@@ -14,7 +14,8 @@
         <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Dashboard")'" />
     </div>
     <div>
-        <a asp-action="Index">Back to List</a>
+        @*<a asp-action="Index">Back to List</a>*@
+        <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Dashboard")'" />
     </div>
 
     <div class="container">
@@ -35,7 +36,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
 
 <script>
     var elements = document.getElementsByClassName("stampIcon");

@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<ContactlessLoyalty.Data.Dashboard>*@
-@model ContactlessLoyalty.Data.Dashboard
+﻿@model ContactlessLoyalty.Data.Dashboard
 @{
     ViewData["Title"] = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
@@ -8,36 +7,45 @@
 @inject SignInManager<AccountContactlessLoyaltyUser> SignInManager
 @inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
-<h2>Index</h2>
+<div class="body-content">
+    <h1>Hi @Model.User.FirstName !</h1>
+    <h3>This is the loyalty card for: <br />  @Model.StoreName</h3>
+    <p>
+        <a asp-action="Create">Go to get a new loyalty card</a>
+    </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    @for (int i = 0; i < Model.NumberOfStamps; i++)
+    {
+        <div class="col-xs-4 stampIcon">
+            <img src="~/images/avataaars.svg" alt="" id="stamp-@i" onclick="readFunction()" />
+        </div>
+    }
 
-@for (int i = 0; i < Model.NumberOfStamps; i++)
+</div>
+
+
+@* Create a method to check if there NFC available on the phone to show an alert
+@if (!string.IsNullOrEmpty(Model.StoreName))
 {
-    <div class="col-xs-4 stampIcon">
-        <img src="~/images/avataaars.svg" alt="" id="stamp-@i" onclick="readFunction()" />
-    </div>
-}
+    <script>alert("Welcome to @Model.StoreName");</script>
+}*@
 
 <script>
-    var elements = document.getElementsByClassName("stampIcon");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("click", (event) => {
-
-        });
-    }
+    
+    //var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+    //console.log(device);
+    //console.log(navigator.userAgent.toLowerCase());
 
     async function readFunction() {
         try {
             const reader = new NDEFReader();
             await reader.scan();
             console.log("> Scan started");
-
+             alert('@TempData["First alert attempt"]');
             reader.addEventListener("error", (event) => {
                 console.log(`Argh! ${event.message}`);
-            });
+                 alert('@TempData["No NFC for youu!"]');
+                });
 
             reader.addEventListener("reading", ({ message, serialNumber }) => {
 
@@ -77,7 +85,7 @@
                                 console.log("User phone number " + @Model.User.PhoneNumber)
                                 document.getElementById("stamp-2").src = "https://image.flaticon.com/icons/svg/2935/2935679.svg";
                                 //document.getElementById("jsonData").value = "Something Example";
-                                
+
                             }
                             break;
                         case "unknown":
