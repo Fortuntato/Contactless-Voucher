@@ -4,66 +4,33 @@
     ViewData["Title"] = "Create";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+<body class="body-content">
+    <h2>Create</h2>
 
-<h2>Create</h2>
+    <h4>Dashboard</h4>
+    <hr />
 
-<h4>Dashboard</h4>
-<hr />
-@*<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="LastStampDateTime" class="control-label"></label>
-                <input asp-for="LastStampDateTime" class="form-control" />
-                <span asp-validation-for="LastStampDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StoreName" class="control-label"></label>
-                <input asp-for="StoreName" class="form-control" />
-                <span asp-validation-for="StoreName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfVouchers" class="control-label"></label>
-                <input asp-for="NumberOfVouchers" class="form-control" />
-                <span asp-validation-for="NumberOfVouchers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfStamps" class="control-label"></label>
-                <input asp-for="NumberOfStamps" class="form-control" />
-                <span asp-validation-for="NumberOfStamps" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+    <div>
+        <input class="btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Dashboard")'" />
     </div>
-</div>*@
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 
-<div>
-    <input class="btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Dashboard")'" />
-</div>
-
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-4 stampIcon" id="firstStamp">
-            <img src="~/images/avataaars.svg" alt="" id="firstStamp1" onclick="readFunction()" />
-        </div>
-        <div class="col-xs-4 stampIcon" id="SecondStamp">
-            <img src="~/images/avataaars.svg" alt="" id="firstStamp2" onclick="readFunction()" />
-        </div>
-        <div class="col-xs-4 stampIcon" id="ThirdStamp">
-            <img src="~/images/avataaars.svg" alt="" onclick="readFunction()" />
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 stampIcon" id="firstStamp">
+                <img src="~/images/avataaars.svg" alt="" id="firstStamp1" onclick="readFunction()" />
+            </div>
+            <div class="col-xs-4 stampIcon" id="SecondStamp">
+                <img src="~/images/avataaars.svg" alt="" id="firstStamp2" onclick="readFunction()" />
+            </div>
+            <div class="col-xs-4 stampIcon" id="ThirdStamp">
+                <img src="~/images/avataaars.svg" alt="" onclick="readFunction()" />
+            </div>
         </div>
     </div>
-</div>
-
+</body>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
