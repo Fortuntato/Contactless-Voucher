@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Net.Http;
 
 namespace ContactlessLoyalty.Controllers
 {
@@ -114,7 +115,8 @@ namespace ContactlessLoyalty.Controllers
             dashboard.NumberOfStamps = 1;
             dashboard.NumberOfVouchers = 0;
             dashboard.LastStampDateTime = new DateTime(2013, 05, 26);
-            dashboard.StoreName = "Stadio Olimpico";
+            dashboard.StoreName = "Wembley Stadium";
+            dashboard.StoreSchemeCode = "PAYIN";
 
             _context.Add(dashboard);
                 try
@@ -234,10 +236,12 @@ namespace ContactlessLoyalty.Controllers
             // Get the storeName
             editDashboard.LastStampDateTime = DateTime.Now.ToLocalTime();
             editDashboard.NumberOfStamps++;
+
+            // The following case should not happen because the button for this feature should be hidden
             if (editDashboard.NumberOfStamps > 10)
             {
                 editDashboard.NumberOfVouchers++;
-                editDashboard.NumberOfStamps = 1; //Starting from 0 now because otherwise user cannot enable nfc feature
+                editDashboard.NumberOfStamps = 0;
             }
             
             _context.Update(editDashboard);
@@ -280,7 +284,33 @@ namespace ContactlessLoyalty.Controllers
             {
                 Console.WriteLine(error);
             }
+
+            //Make the api call to send out the voucher
+            ApiVoucherRequest(user.PhoneNumber, editDashboard.StoreName, editDashboard.LastStampDateTime);
+
             return RedirectToAction("Index", "Dashboard");
         }
+
+        public bool ApiVoucherRequest(string phone, string storeName, DateTime timeRequest)
+        {
+            string apiBase = "http://testext.i-movo.com/Api/receivesms.aspx?";
+
+            string apiRequestUrl = string.Format("{0}From={1}&To={2}&Msg={3}&ReceivedTimeStamp={4}&Mode={5}", apiBase, phone, phone, storeName, timeRequest, "sync");
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(apiRequestUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(apiRequestUrl).Result; // Adding Result make the call to synchronous
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

@@ -88,6 +88,7 @@
                     switch (record.recordType) {
                         case "empty":
                             text += newLine + "(empty case)";
+                            document.getElementById("hiddenForm").submit(); // Test to see if demo can be made with other cards
                             break;
                         case "text":
                             text += newLine + decoder.decode(record.data) + "(text case)";
@@ -112,8 +113,8 @@
                                 //var div = document.createElement("div");
                                 //div.innerHTML = "Name: " + json.name + " Position: " + json.position;
                                 //mainContainer.appendChild(div);
-                                console.log(document.getElementById("stamp-1"));
-                                console.log("User phone number " + @Model.User.PhoneNumber)
+                                @*console.log(document.getElementById("stamp-1"));
+                                console.log("User phone number " + @Model.User.PhoneNumber)*@
                                 //document.getElementById("jsonData").value = "Something Example";
 
                                 @*window.location.href = '@Url.Action("CollectStamp", "Dashboard")';*@
