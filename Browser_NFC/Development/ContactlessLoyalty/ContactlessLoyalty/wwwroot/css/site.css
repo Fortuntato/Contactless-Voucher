@@ -110,7 +110,7 @@ div.login-logout-tab a.nav-link {
 }
 
 .active {
-    background-color: #d9edf724;
+    background-color: #00aaff40; /*Transparent light blue*/
 }
 
 

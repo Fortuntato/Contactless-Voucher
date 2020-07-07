@@ -31,15 +31,15 @@ namespace ContactlessLoyalty.Controllers
             var user = await _userManager.GetUserAsync(User);
 
             List<Dashboard> userCards = await _context.Dashboard.ToListAsync();
-            foreach (Dashboard dash in userCards)
+
+            Dashboard dashboard = userCards.Where(x => x.User == user).FirstOrDefault();
+
+            if (dashboard != null) // Maybe worth checking again
             {
-                if(dash.User == user)
-                {
-                    return View(dash);
-                }
+                return View(dashboard);
             }
 
-            return View(await _context.Dashboard.ToListAsync());
+            return RedirectToAction("Details", "Dashboard"); // TODO: Create view page stating there are no card associated with it
         }
 
         // GET: Dashboards/Details/5
@@ -240,6 +240,37 @@ namespace ContactlessLoyalty.Controllers
                 editDashboard.NumberOfStamps = 1; //Starting from 0 now because otherwise user cannot enable nfc feature
             }
             
+            _context.Update(editDashboard);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error);
+            }
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+
+        public async Task<IActionResult> ResetStamp()
+        {
+            // Get the user id to store with the new card
+            AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // Find detail of existing loyalty card of the person
+            Dashboard editDashboard = await _context.Dashboard
+                .FirstOrDefaultAsync(m => m.User.Id == user.Id);
+
+            // Get the storeName
+            editDashboard.LastStampDateTime = DateTime.Now.ToLocalTime();
+            editDashboard.NumberOfStamps = 0;
+            editDashboard.NumberOfVouchers++;
+
             _context.Update(editDashboard);
             try
             {
