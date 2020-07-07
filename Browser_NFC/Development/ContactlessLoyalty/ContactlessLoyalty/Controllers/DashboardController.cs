@@ -33,6 +33,7 @@ namespace ContactlessLoyalty.Controllers
 
             List<Dashboard> userCards = await _context.Dashboard.ToListAsync();
 
+            //At the moment is getting only the first card found in the DB. TODO: Check the correspondent card 
             Dashboard dashboard = userCards.Where(x => x.User == user).FirstOrDefault();
 
             if (dashboard != null) // Maybe worth checking again
@@ -99,9 +100,10 @@ namespace ContactlessLoyalty.Controllers
             return View(dashboard);
         }
 
-        public async Task<IActionResult> CreateCard(Dashboard dashboard)
+        public async Task<IActionResult> CreateCard()
         {
             // Logic for creating a new card
+            Dashboard dashboard = new Dashboard(); // Manually creating new dashboard instance
 
             // Get the user id to store with the new card
             var user = await _userManager.GetUserAsync(User);
@@ -218,7 +220,7 @@ namespace ContactlessLoyalty.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CollectStamp(Dashboard dashboardValue)
+        public async Task<IActionResult> CollectStamp()
         {
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
@@ -227,7 +229,7 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            Console.WriteLine(dashboardValue.StoreName); // Value from the tag to be checked
+            //Console.WriteLine(dashboardValue.StoreName); // Value from the tag to be checked
 
             // Find detail of existing loyalty card of the person
             Dashboard editDashboard = await _context.Dashboard
