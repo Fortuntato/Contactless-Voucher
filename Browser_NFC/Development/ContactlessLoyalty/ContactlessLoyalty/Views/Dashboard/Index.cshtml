@@ -16,41 +16,48 @@
 
     @for (int i = 0; i < Model.NumberOfStamps; i++)
     {
-        <div class="col-xs-4 stampIcon">
-            <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
-        </div>
+    <div class="col-xs-4 stampIcon">
+        <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
+    </div>
     }
 
     @for (int i = 0; i < 9 - Model.NumberOfStamps; i++)
     {
-        <div class="col-xs-4 stampIcon">
-            <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
-        </div>
+    <div class="col-xs-4 stampIcon">
+        <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
+    </div>
     }
 
     <br />
 
     @if (Model.NumberOfStamps == 9)
     {
-        <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Dashboard")'" style="margin-top:20px"/>
-        </div>
+    <div>
+        <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Dashboard")'" style="margin-top:20px" />
+    </div>
     }
     else
     {
-        <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px"/>
-        </div>
+    <div>
+        <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
+    </div>
     }
 
 </div>
 
-<form asp-action="CollectStamp" asp-controller="Dashboard" method="post" id="hiddenForm">
+@*<form asp-action="CollectStamp" asp-controller="Dashboard" method="post"  id="hiddenForm">
     @Html.AntiForgeryToken()
-    @*<input asp-for="StoreName" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />*@
+    <input asp-net-class="form-control" type="text" value="A value" id="uniqueStoreCode" />
+    <input type="submit" value="Debug dashboard error" class="btn btn-default" />
+</form>*@
+
+<form asp-action="CollectStamp" asp-controller="Dashboard" method="post" id="magicForm">
+    @Html.AntiForgeryToken()
+    <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
+    <input type="submit" value="Debug dashboard error" class="btn btn-default" />
 </form>
 
-<script>
+    <script>
 
     //var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
     //console.log(device);
@@ -117,9 +124,8 @@
                                 console.log("User phone number " + @Model.User.PhoneNumber)*@
                                 //document.getElementById("jsonData").value = "Something Example";
 
-                                @*window.location.href = '@Url.Action("CollectStamp", "Dashboard")';*@
 
-                                //document.getElementById("uniqueStoreCode").value = "Forza Lazio!"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
+                                document.getElementById("uniqueStoreCode").value = "Forza Lazio!"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
 
                                 document.getElementById("hiddenForm").submit();
                             }
@@ -184,7 +190,7 @@
                                 console.log(json);
                                 text = decoder.decode(record.data);
                                 // To display json object inside html page
-                                var mainContainer = document.getElementById("jsonData");
+                                //var mainContainer = document.getElementById("jsonData");
                                 //var div = document.createElement("div");
                                 //div.innerHTML = "Name: " + json.name + " Position: " + json.position;
                                 //mainContainer.appendChild(div);
@@ -193,7 +199,6 @@
                                 document.getElementById("stamp-" + imageNumber).src = "@Url.Content("/images/banner1.svg")";
                                 //document.getElementById("jsonData").value = "Something Example";
 
-                                @*window.location.href = '@Url.Action("CollectStamp", "Dashboard")';*@
 
                                 document.getElementById("uniqueStoreCode").value = "Forza Lazio!"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
 
@@ -218,10 +223,10 @@
             console.log("Argh! " + error);
         }
     }
-</script>
+    </script>
 
-@* Create a method to check if there NFC available on the phone to show an alert
-    @if (!string.IsNullOrEmpty(Model.StoreName))
-    {
-        <script>alert("Welcome to @Model.StoreName");</script>
-    }*@
+    @* Create a method to check if there NFC available on the phone to show an alert
+        @if (!string.IsNullOrEmpty(Model.StoreName))
+        {
+            <script>alert("Welcome to @Model.StoreName");</script>
+        }*@
