@@ -220,10 +220,10 @@ namespace ContactlessLoyalty.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CollectStamp([FromForm] dynamic formValue)
+        public async Task<IActionResult> CollectStamp(string StoreSchemeCode, string __RequestVerificationToken)
         {
 
-            Console.WriteLine(formValue.uniqueStoreCode);
+            Console.WriteLine(__RequestVerificationToken);
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
