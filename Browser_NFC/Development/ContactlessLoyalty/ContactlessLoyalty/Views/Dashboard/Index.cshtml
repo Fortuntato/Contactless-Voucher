@@ -25,7 +25,7 @@
 
 <form asp-action="CollectStamp" asp-controller="Dashboard" method="post" id="magicForm">
     @Html.AntiForgeryToken()
-    <input name="collection" type="hidden" value="Avalue">
+    <input asp-for="StoreName" class="form-control" type="hidden" value="A value" id="uniqueStoreCode"/>
 </form>
 
 
@@ -93,7 +93,8 @@
 
                                 @*window.location.href = '@Url.Action("CollectStamp", "Dashboard")';*@
 
-                                //document.getElementById("collectData").value = "AnExample";
+                                document.getElementById("uniqueStoreCode").value = "Forza Lazio!"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
+                                
                                 document.getElementById("magicForm").submit();
                             }
                             break;

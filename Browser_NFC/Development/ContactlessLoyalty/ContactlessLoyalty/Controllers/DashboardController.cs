@@ -216,7 +216,7 @@ namespace ContactlessLoyalty.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CollectStamp(string test)
+        public async Task<IActionResult> CollectStamp(Dashboard dashboardValue)
         {
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
@@ -225,7 +225,7 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            Console.WriteLine(test);
+            Console.WriteLine(dashboardValue.StoreName); // Value from the tag to be checked
 
             // Find detail of existing loyalty card of the person
             Dashboard editDashboard = await _context.Dashboard
