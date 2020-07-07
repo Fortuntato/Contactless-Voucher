@@ -8,7 +8,7 @@
 
 @if (showBanner)
 {
-    <nav id="cookieConsent" class="navbar navbar-default navbar-fixed-top" role="alert">
+    <nav id="cookieConsent" class="navbar navbar-default navbar-fixed-bottom" role="alert">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#cookieConsent .navbar-collapse">
@@ -21,12 +21,12 @@
             </div>
             <div class="collapse navbar-collapse">
                 <p class="navbar-text">
-                    Use this space to summarize your privacy and cookie use policy.
+                    We use cookies only where necessary.
                 </p>
-                <div class="navbar-right">
+                @*<div class="navbar-right">
                     <a asp-controller="Home" asp-action="Privacy" class="btn btn-info navbar-btn">Learn More</a>
                     <button type="button" class="btn btn-default navbar-btn" data-cookie-string="@cookieString">Accept</button>
-                </div>
+                </div>*@
             </div>
         </div>
     </nav>
