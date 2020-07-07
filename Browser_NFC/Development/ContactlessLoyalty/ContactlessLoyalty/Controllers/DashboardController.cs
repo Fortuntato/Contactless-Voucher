@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ContactlessLoyalty.Controllers
 {
@@ -213,9 +214,10 @@ namespace ContactlessLoyalty.Controllers
             return _context.Dashboard.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> CollectStamp()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CollectStamp(string test)
         {
-            //Dashboard dashboard = new Dashboard();
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -223,16 +225,18 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            Console.WriteLine(test);
+
             // Find detail of existing loyalty card of the person
             Dashboard editDashboard = await _context.Dashboard
                 .FirstOrDefaultAsync(m => m.User.Id == user.Id);
 
             // Get the storeName
             editDashboard.LastStampDateTime = DateTime.Now.ToLocalTime();
-            editDashboard.NumberOfStamps += 1;
+            editDashboard.NumberOfStamps++;
             if (editDashboard.NumberOfStamps > 10)
             {
-                editDashboard.NumberOfVouchers += 1;
+                editDashboard.NumberOfVouchers++;
                 editDashboard.NumberOfStamps = 1; //Starting from 0 now because otherwise user cannot enable nfc feature
             }
             
@@ -247,6 +251,5 @@ namespace ContactlessLoyalty.Controllers
             }
             return RedirectToAction("Index", "Dashboard");
         }
-
     }
 }
