@@ -7,19 +7,36 @@
     ViewData["Title"] = "Create";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-    <body class="body-content">
-        <h3>Create a new Loyalty Card</h3>
-        <hr />
+<body class="body-content">
+    <h3>Welcome to a <br />Premium Loyalty Experience!</h3>
+    <hr />
 
-        <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Card", this.Model)'" />
-        </div>
-        <br />
-       
-            <div>
-                <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Card")'" />
-            </div>
-    </body>
+    <div>
+        <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Card", this.Model)'" />
+    </div>
+    <br />
+
+    <p>To fully use Contactless Loyalty you need to be visiting this page with Google Chrome on a NFC enabled device.</p>
+    <p>
+        To start scanning NFC on Chrome you need to do the following:
+        <ol>
+            <li>
+                Go to <a href="chrome://flags/">chrome://flags</a> (Please copy the link and open it on a new page)
+            </li>
+            <li>
+                Enable <b>Experimental Web Platform features</b>
+            </li>
+            <li>
+                You are good to go! (Just allow us to scan later on)
+            </li>
+        </ol>
+    </p>
+
+    <div>
+        <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Card")'" />
+    </div>
+
+</body>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

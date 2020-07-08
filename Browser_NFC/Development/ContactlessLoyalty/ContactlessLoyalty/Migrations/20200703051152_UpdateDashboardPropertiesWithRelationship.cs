@@ -8,29 +8,29 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Dashboard_AspNetUsers_AccountContactlessLoyaltyUserId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropIndex(
                 name: "IX_Dashboard_AccountContactlessLoyaltyUserId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "AccountContactlessLoyaltyUserId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.AddColumn<string>(
                 name: "UserIdId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dashboard_UserIdId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 column: "UserIdId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Dashboard_AspNetUsers_UserIdId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 column: "UserIdId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
@@ -41,30 +41,30 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Dashboard_AspNetUsers_UserIdId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropIndex(
                 name: "IX_Dashboard_UserIdId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "UserIdId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.AddColumn<string>(
                 name: "AccountContactlessLoyaltyUserId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 type: "nvarchar(450)",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dashboard_AccountContactlessLoyaltyUserId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 column: "AccountContactlessLoyaltyUserId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Dashboard_AspNetUsers_AccountContactlessLoyaltyUserId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 column: "AccountContactlessLoyaltyUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",

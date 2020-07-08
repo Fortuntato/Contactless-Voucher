@@ -15,7 +15,7 @@
 
         @if (!ViewData.ModelState.IsValid)
         {
-        <span class="text-danger">Collection attempted on invalid time. Check loyalty scheme stamp collection condition.</span>
+        <span class="text-danger">Collection attempted on invalid time. <br />Check loyalty scheme stamp collection condition.</span>
         }
 
         @for (int i = 0; i < Model.NumberOfStamps; i++)
@@ -119,7 +119,6 @@
                                 @*console.log(document.getElementById("stamp-1"));
                                 console.log("User phone number " + @Model.User.PhoneNumber)*@
                                 //document.getElementById("jsonData").value = "Something Example";
-
 
                                 document.getElementById("uniqueStoreCode").value = "NFC_Tag"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
 

@@ -9,15 +9,15 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Genre",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "ReleaseDate",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "Title",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "MobilePhoneNumber",
@@ -25,34 +25,34 @@ namespace ContactlessLoyalty.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "AccountContactlessLoyaltyUserId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "LastStampDateTime",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<int>(
                 name: "NumberOfStamps",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
                 name: "NumberOfVouchers",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dashboard_AccountContactlessLoyaltyUserId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 column: "AccountContactlessLoyaltyUserId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Dashboard_AspNetUsers_AccountContactlessLoyaltyUserId",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 column: "AccountContactlessLoyaltyUserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
@@ -63,44 +63,44 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Dashboard_AspNetUsers_AccountContactlessLoyaltyUserId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropIndex(
                 name: "IX_Dashboard_AccountContactlessLoyaltyUserId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "AccountContactlessLoyaltyUserId",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "LastStampDateTime",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "NumberOfStamps",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.DropColumn(
                 name: "NumberOfVouchers",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.AddColumn<string>(
                 name: "Genre",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "ReleaseDate",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 type: "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<string>(
                 name: "Title",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 type: "nvarchar(max)",
                 nullable: true);
 

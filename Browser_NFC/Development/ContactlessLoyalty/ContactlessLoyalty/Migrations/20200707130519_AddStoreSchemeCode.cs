@@ -8,7 +8,7 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "StoreName",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 maxLength: 50,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -17,7 +17,7 @@ namespace ContactlessLoyalty.Migrations
 
             migrationBuilder.AddColumn<string>(
                 name: "StoreSchemeCode",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 maxLength: 10,
                 nullable: true);
         }
@@ -26,11 +26,11 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "StoreSchemeCode",
-                table: "Dashboard");
+                table: "LoyaltyCards");
 
             migrationBuilder.AlterColumn<string>(
                 name: "StoreName",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),

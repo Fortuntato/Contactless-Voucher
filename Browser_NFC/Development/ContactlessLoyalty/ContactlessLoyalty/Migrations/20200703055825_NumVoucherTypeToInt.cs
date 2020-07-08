@@ -8,7 +8,7 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.AlterColumn<int>(
                 name: "NumberOfVouchers",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
@@ -19,7 +19,7 @@ namespace ContactlessLoyalty.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "NumberOfVouchers",
-                table: "Dashboard",
+                table: "LoyaltyCards",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(int));
