@@ -212,9 +212,13 @@ footer {
 /*Tremble function for the stamp icons*/
 .shakeIcon {
     /* Start the shake animation and make the animation last for 0.5 seconds */
-    animation: shake 0.5s;
+    animation: shake 5.0s;
     /* When the animation is finished, start again */
     animation-iteration-count: infinite;
+}
+
+.buttonTopMargin {
+    margin-top: 20px;
 }
 
 @keyframes shake {

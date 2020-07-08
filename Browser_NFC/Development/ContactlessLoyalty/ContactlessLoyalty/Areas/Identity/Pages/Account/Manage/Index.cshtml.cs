@@ -39,7 +39,8 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Phone Number")]
+            //// TOENABLE[RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
             public string PhoneNumber { get; set; }
         }
 

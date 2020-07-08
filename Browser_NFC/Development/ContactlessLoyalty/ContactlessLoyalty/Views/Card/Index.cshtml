@@ -21,14 +21,14 @@
         @for (int i = 0; i < Model.NumberOfStamps; i++)
         {
         <div class="col-xs-4 stampIcon">
-            <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
+            <img class="buttonTopMargin" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
         </div>
         }
 
         @for (int i = 0; i < (int)SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
         {
         <div class="col-xs-4 stampIcon">
-            <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
+            <img class="buttonTopMargin" style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
         </div>
         }
 
@@ -37,16 +37,18 @@
         @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
         {
         <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
+            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'"/>
         </div>
         }
         else
         {
         <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
+            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()"/>
         </div>
+        <p class="buttonTopMargin">If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
+        Please use the <b>Mock Collection</b> button instead.</p>
         <div>
-            <input class="btn btn-default btn-shadow col-sm-3" type="button" value="Stop shaking" onclick="disableIcon()" style="margin-top:20px" />
+            <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop shaking" onclick="disableIcon()"/>
         </div>
         }
         <br />
@@ -77,7 +79,7 @@
 
             //alert('First alert attempt');
             reader.addEventListener("error", (event) => {
-                alert("No valid NFC feature. {0}", event.message);
+                alert("No valid NFC feature. " + event.message);
             });
 
             reader.addEventListener("reading", ({ message, serialNumber }) => {
@@ -152,7 +154,7 @@
 
     function disableIcon() {
         if (iconToShake != null) {
-            iconToShake.className = "removeShake";
+            iconToShake.className = "buttonTopMargin";
         }
     }
 

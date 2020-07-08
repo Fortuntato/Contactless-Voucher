@@ -14,7 +14,7 @@
 
         public IActionResult About()
         {
-            ViewData["Message"] = "This is Contactless Loyalty.";
+            ViewData["Message"] = "This is a Final Year Project.";
 
             return View();
         }
