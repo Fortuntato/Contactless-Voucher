@@ -1,19 +1,15 @@
 ﻿namespace ContactlessLoyalty.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
     using ContactlessLoyalty.Data;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Diagnostics;
     [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Create","Dashboard");
+            return RedirectToAction("Create", "Dashboard");
         }
 
         public IActionResult About()

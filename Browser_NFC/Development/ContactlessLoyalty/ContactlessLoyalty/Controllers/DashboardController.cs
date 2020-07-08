@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ContactlessLoyalty.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ContactlessLoyalty.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ContactlessLoyalty.Controllers
 {
@@ -17,7 +16,9 @@ namespace ContactlessLoyalty.Controllers
         private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
         private readonly DatabaseContext _context;
 
-        public DashboardController(DatabaseContext context, UserManager<AccountContactlessLoyaltyUser> userManager,
+        public DashboardController(
+            DatabaseContext context,
+            UserManager<AccountContactlessLoyaltyUser> userManager,
             SignInManager<AccountContactlessLoyaltyUser> signInManager)
         {
             _context = context;
@@ -29,14 +30,15 @@ namespace ContactlessLoyalty.Controllers
         public async Task<IActionResult> Index()
         {
             // Scenario where the user has only one card at the moment
-            var user = await _userManager.GetUserAsync(User);
+            AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
 
             List<Dashboard> userCards = await _context.Dashboard.ToListAsync();
 
-            //At the moment is getting only the first card found in the DB. TODO: Check the correspondent card 
+            // At the moment is getting only the first card found in the DB. TODO: Check the correspondent card 
             Dashboard dashboard = userCards.Where(x => x.User == user).FirstOrDefault();
 
-            if (dashboard != null) // Maybe worth checking again
+            // Maybe worth checking again
+            if (dashboard != null)
             {
                 return View(dashboard);
             }
@@ -52,7 +54,7 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound();
             }
 
-            var dashboard = await _context.Dashboard
+            Dashboard dashboard = await _context.Dashboard
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dashboard == null)
             {
@@ -78,12 +80,12 @@ namespace ContactlessLoyalty.Controllers
             if (ModelState.IsValid)
             {
                 // Get the user id to store with the new card
-                var user = await _userManager.GetUserAsync(User);
+                AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
-                    
+
                 dashboard.User = user;
 
                 _context.Add(dashboard);
@@ -95,8 +97,10 @@ namespace ContactlessLoyalty.Controllers
                 {
                     Console.WriteLine(error);
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(dashboard);
         }
 
@@ -106,11 +110,12 @@ namespace ContactlessLoyalty.Controllers
             Dashboard dashboard = new Dashboard(); // Manually creating new dashboard instance
 
             // Get the user id to store with the new card
-            var user = await _userManager.GetUserAsync(User);
+            AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
             dashboard.User = user;
 
             // Everything to be set to 0 except the store name (Campaign)
@@ -121,16 +126,16 @@ namespace ContactlessLoyalty.Controllers
             dashboard.StoreSchemeCode = "PAYIN";
 
             _context.Add(dashboard);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception error)
-                {
-                    Console.WriteLine(error);
-                }
-                return RedirectToAction("Index", "Dashboard");
-            
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error);
+            }
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         // GET: Dashboards/Edit/5
@@ -141,11 +146,12 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound();
             }
 
-            var dashboard = await _context.Dashboard.FindAsync(id);
+            Dashboard dashboard = await _context.Dashboard.FindAsync(id);
             if (dashboard == null)
             {
                 return NotFound();
             }
+
             return View(dashboard);
         }
 
@@ -179,8 +185,10 @@ namespace ContactlessLoyalty.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(dashboard);
         }
 
@@ -192,7 +200,7 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound();
             }
 
-            var dashboard = await _context.Dashboard
+            Dashboard dashboard = await _context.Dashboard
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dashboard == null)
             {
@@ -207,7 +215,7 @@ namespace ContactlessLoyalty.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dashboard = await _context.Dashboard.FindAsync(id);
+            Dashboard dashboard = await _context.Dashboard.FindAsync(id);
             _context.Dashboard.Remove(dashboard);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -222,8 +230,8 @@ namespace ContactlessLoyalty.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CollectStamp(string StoreSchemeCode, string __RequestVerificationToken)
         {
-
             Console.WriteLine(__RequestVerificationToken);
+
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -231,7 +239,7 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            //Console.WriteLine(dashboardValue.StoreName); // Value from the tag to be checked
+            // Console.WriteLine(dashboardValue.StoreName); // Value from the tag to be checked
 
             // Find detail of existing loyalty card of the person
             Dashboard editDashboard = await _context.Dashboard
@@ -247,7 +255,7 @@ namespace ContactlessLoyalty.Controllers
                 editDashboard.NumberOfVouchers++;
                 editDashboard.NumberOfStamps = 0;
             }
-            
+
             _context.Update(editDashboard);
             try
             {
@@ -257,9 +265,9 @@ namespace ContactlessLoyalty.Controllers
             {
                 Console.WriteLine(error);
             }
+
             return RedirectToAction("Index", "Dashboard");
         }
-
 
         public async Task<IActionResult> ResetStamp()
         {
@@ -289,7 +297,7 @@ namespace ContactlessLoyalty.Controllers
                 Console.WriteLine(error);
             }
 
-            //Make the api call to send out the voucher
+            // Make the api call to send out the voucher
             ApiVoucherRequest(user.PhoneNumber, editDashboard.StoreSchemeCode, editDashboard.LastStampDateTime);
 
             return RedirectToAction("Index", "Dashboard");
@@ -313,8 +321,8 @@ namespace ContactlessLoyalty.Controllers
                     return true;
                 }
             }
+
             return false;
         }
-
     }
 }

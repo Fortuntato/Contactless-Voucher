@@ -1,10 +1,5 @@
-
-﻿using ContactlessLoyalty.Data;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContactlessLoyalty.Data
 {
@@ -24,7 +19,6 @@ namespace ContactlessLoyalty.Data
 
         [MaxLength(50)]
         public string StoreName { get; set; }
-
 
         [MaxLength(10)]
         public string StoreSchemeCode { get; set; }

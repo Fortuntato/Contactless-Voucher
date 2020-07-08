@@ -1,5 +1,3 @@
-using System;
-
 namespace ContactlessLoyalty.Data
 {
     public class ErrorViewModel

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Authorization;
-using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace ContactlessLoyalty.Areas.Identity.Pages.Account
 {
@@ -19,7 +15,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
         private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
         private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        
+
         public RegisterModel(
             UserManager<AccountContactlessLoyaltyUser> userManager,
             SignInManager<AccountContactlessLoyaltyUser> signInManager,
@@ -50,7 +46,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             [Required]
             [Phone]
             [Display(Name = "Mobile Phone Number")]
-            //[RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
+            //// [RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -74,7 +70,6 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             }
 
             ReturnUrl = returnUrl;
-
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -82,8 +77,8 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new AccountContactlessLoyaltyUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.PhoneNumber, PhoneNumber = Input.PhoneNumber};
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                AccountContactlessLoyaltyUser user = new AccountContactlessLoyaltyUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.PhoneNumber, PhoneNumber = Input.PhoneNumber };
+                IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -91,7 +86,8 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
-                foreach (var error in result.Errors)
+
+                foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }

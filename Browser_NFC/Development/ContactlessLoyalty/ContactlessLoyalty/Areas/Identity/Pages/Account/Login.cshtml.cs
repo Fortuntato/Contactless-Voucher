@@ -5,9 +5,9 @@
 
 namespace ContactlessLoyalty.Areas.Identity.Pages.Account
 {
-    using Microsoft.AspNetCore.Authorization;
     using ContactlessLoyalty.Data;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -45,7 +45,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             [Phone]
             [Display(Name = "Mobile Phone Number")]
             public string PhoneNumber { get; set; }
-            
+
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
@@ -74,7 +74,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            this.ReturnUrl = returnUrl;
+            ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -85,7 +85,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.PhoneNumber, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(Input.PhoneNumber, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

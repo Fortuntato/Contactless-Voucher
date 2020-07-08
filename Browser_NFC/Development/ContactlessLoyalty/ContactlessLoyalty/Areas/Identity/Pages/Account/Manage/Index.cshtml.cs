@@ -1,11 +1,11 @@
 ﻿namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.Threading.Tasks;
     using ContactlessLoyalty.Data;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
@@ -40,7 +40,7 @@
 
         private async Task LoadAsync(AccountContactlessLoyaltyUser user)
         {
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            string phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             FirstName = user.FirstName;
             LastName = user.LastName;
@@ -53,7 +53,7 @@
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -65,7 +65,7 @@
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -78,12 +78,12 @@
             }
 
             // Get the phone number saved from the database and check if change in the DB are needed
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            string phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
                 // Update the username along with the phone number since username field is checked for login
-                var setUsername = await _userManager.SetUserNameAsync(user, Input.PhoneNumber);
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                IdentityResult setUsername = await _userManager.SetUserNameAsync(user, Input.PhoneNumber);
+                IdentityResult setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded || !setUsername.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number and username.";
