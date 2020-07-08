@@ -8,51 +8,51 @@
 @inject SignInManager<AccountContactlessLoyaltyUser> SignInManager
 @inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
-<div class="body-content">
-    <h1>Hi @Model.User.FirstName !</h1>
-    <h3>This is the loyalty card for: <br />  @Model.StoreName</h3>
+    <div class="body-content">
+        <h1>Hi @Model.User.FirstName !</h1>
+        <h3>This is the loyalty card for: <br />  @Model.StoreName</h3>
 
-    @for (int i = 0; i < Model.NumberOfStamps; i++)
-    {
-        <div class="col-xs-4 stampIcon">
-            <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
-        </div>
-    }
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <span class="text-danger">Collection attempted on invalid time. Check loyalty scheme stamp collection condition.</span>
+        }
 
-    @for (int i = 0; i < (int) SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
-    {
-        <div class="col-xs-4 stampIcon">
-            <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
-        </div>
-    }
+        @for (int i = 0; i < Model.NumberOfStamps; i++)
+        {
+            <div class="col-xs-4 stampIcon">
+                <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
+            </div>
+        }
 
-    <br />
+        @for (int i = 0; i < (int)SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
+        {
+            <div class="col-xs-4 stampIcon">
+                <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
+            </div>
+        }
 
-    @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
-    {
-        <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
-        </div>
-    }
-    else
-    {
-        <div>
-            <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
-        </div>
-    }
+        <br />
 
-</div>
+        @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
+        {
+            <div>
+                <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
+            </div>
+        }
+        else
+        {
+            <div>
+                <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
+            </div>
+        }
 
-@*<form asp-action="CollectStamp" asp-controller="Dashboard" method="post"  id="hiddenForm">
-        @Html.AntiForgeryToken()
-        <input asp-net-class="form-control" type="text" value="A value" id="uniqueStoreCode" />
-        <input type="submit" value="Debug dashboard error" class="btn btn-default" />
-    </form>*@
+    </div>
 
+<br />
 <form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
     @Html.AntiForgeryToken()
     <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
-    <input type="submit" value="Debug dashboard error" class="btn btn-default" />
+    <input type="submit" value="Mock Collection" class="btn btn-default" />
 </form>
 
 <script>

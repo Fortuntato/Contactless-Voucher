@@ -1,0 +1,14 @@
+﻿@model ContactlessLoyalty.Data.Card
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="body-content">
+    <h3>Your voucher is on its way to you!</h3>
+    <h5>You should receive an SMS containing a link to the digital voucher very soon.</h5>
+</div>
+  <iframe src="https://giphy.com/embed/ROyijmazFKRc4" width="480" height="360" frameBorder="0"></iframe>
+<div class="body-content">
+    <input type="button" class="btn btn-default btn-shadow" value="Go back and Collect more Stamps!" onclick="location.href='@Url.Action("Index", "Card")'" />
+</div>

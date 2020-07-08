@@ -5,7 +5,7 @@
 <div class="body-content">
     <h3>No loyalty card found</h3>
     <p>It seems that there is no loyalty card with this account</p>
-    <p>
-        <a asp-action="Create">Go to get a new loyalty card</a>
-    </p>
+    <div>
+        <input type="button" class="btn btn-default btn-shadow" value="Go to get a new Loyalty Card" onclick="location.href='@Url.Action("Create", "Card")'" />
+    </div>
 </div>

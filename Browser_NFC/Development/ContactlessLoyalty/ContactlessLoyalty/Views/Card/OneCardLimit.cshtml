@@ -7,7 +7,7 @@
     <div class="body-content">
         <h3>Cannot create new card</h3>
         <p>It seems that you already have a card</p>
-        <p>
-            <a asp-action="Index" asp-controller="Card">Go to existing Loyalty Card</a>
-        </p>
+        <div>
+            <input type="button" class="btn btn-default btn-shadow" value="Go to existing Loyalty Card" onclick="location.href='@Url.Action("Index", "Card")'" />
+        </div>
     </div>

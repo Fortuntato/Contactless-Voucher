@@ -152,61 +152,10 @@ namespace ContactlessLoyalty.Controllers
             return View();
         }
 
-        // GET: Dashboards/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> VoucherSent()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Card dashboard = await _context.LoyaltyCards.FindAsync(id);
-            if (dashboard == null)
-            {
-                return NotFound();
-            }
-
-            return View(dashboard);
+            return View();
         }
-
-        // POST: Dashboards/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumberOfVouchers,LastStampDateTime,NumberOfStamps,StoreName")] Card dashboard)
-        {
-            if (id != dashboard.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(dashboard);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DashboardExists(dashboard.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(dashboard);
-        }
-
-
 
         private bool DashboardExists(int id)
         {
@@ -215,10 +164,8 @@ namespace ContactlessLoyalty.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CollectStamp(string StoreSchemeCode, string __RequestVerificationToken)
+        public async Task<IActionResult> CollectStamp(string StoreSchemeCode)
         {
-            Console.WriteLine(__RequestVerificationToken);
-
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -226,24 +173,37 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            // Console.WriteLine(dashboardValue.StoreName); // Value from the tag to be checked
+            // Console.WriteLine(StoreSchemeCode); // Value from the tag to be checked
 
             // Find detail of existing loyalty card of the person
-            Card editDashboard = await _context.LoyaltyCards
+            Card editCard = await _context.LoyaltyCards
                 .FirstOrDefaultAsync(m => m.User.Id == user.Id);
 
-            // Get the storeName
-            editDashboard.LastStampDateTime = DateTime.Now.ToLocalTime();
-            editDashboard.NumberOfStamps++;
+            // Check for valid collection
+            DateTime currentTime = DateTime.Now.ToLocalTime();
 
-            // The following case should not happen because the button for this feature should be hidden
-            if (editDashboard.NumberOfStamps > (int)SchemeLimit.WembleyEmporium)
+            // Customer can collect the stamp once a day
+            if (isTimeValid(currentTime, editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate")))
             {
-                _logger.LogWarning("User {0} attempt to collect new stamp but reached limit {1}", user.Id, (int)SchemeLimit.WembleyEmporium);
-                editDashboard.NumberOfStamps--; // Remove stamp collected over limit
+                editCard.LastStampDateTime = currentTime;
+                editCard.NumberOfStamps++;
+            }
+            else
+            {
+                _logger.LogError("Customer attempt to collect stamp on invalid date. Last stamp: {0}. Collection Rate:{1}", editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate"));
+                ModelState.AddModelError("RateInvalid", "Collection attempted on invalid day.");
+                return View("Index", editCard);
             }
 
-            _context.Update(editDashboard);
+
+            // The following case is to prevent user from collecting more stamps before collecting the voucher.
+            if (editCard.NumberOfStamps > (int)SchemeLimit.WembleyEmporium)
+            {
+                _logger.LogWarning("User {0} attempt to collect new stamp but reached limit {1}", user.Id, (int)SchemeLimit.WembleyEmporium);
+                editCard.NumberOfStamps--; // Remove stamp collected over limit
+            }
+
+            _context.Update(editCard);
             try
             {
                 await _context.SaveChangesAsync();
@@ -290,7 +250,7 @@ namespace ContactlessLoyalty.Controllers
                 _logger.LogError("Voucher SMS unable to be sent. API Returned FAIL. Check phone number{0} and scheme code: {1}", user.PhoneNumber, editDashboard.StoreSchemeCode);
             }
 
-            return RedirectToAction("Index", "Card");
+            return RedirectToAction("VoucherSent", "Card");
         }
 
         public bool ApiVoucherRequest(string phone, string storeName, DateTime timeRequest)
@@ -313,6 +273,37 @@ namespace ContactlessLoyalty.Controllers
                     _logger.LogInformation("API call made for receiveSMS.");
                     return true;
                 }
+            }
+
+            return false;
+        }
+
+        public bool isTimeValid(DateTime currentTime, DateTime lastStampDateTime, string redemptionRate)
+        {
+            switch (redemptionRate.ToLower())
+            {
+                case "hourly":
+                    if ((currentTime - lastStampDateTime).Hours > 0)
+                    {
+                        return true;
+                    }
+                    break;
+                case "daily":
+                    if ((currentTime - lastStampDateTime.Date).Days > 0)
+                    {
+                        return true;
+                    }
+                    break;
+                case "weekly":
+                    if ((currentTime - lastStampDateTime.Date).Days > 6)
+                    {
+                        return true;
+                    }
+                    break;
+                case "unlimited":
+                    return true;
+                default:
+                    return false;
             }
 
             return false;
