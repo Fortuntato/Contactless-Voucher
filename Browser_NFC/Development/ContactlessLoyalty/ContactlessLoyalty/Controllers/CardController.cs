@@ -52,30 +52,18 @@ namespace ContactlessLoyalty.Controllers
             Card dashboard = userCards.Where(x => x.User == user).FirstOrDefault();
 
             // Maybe worth checking again
-            if (dashboard != null)
-            {
-                return View(dashboard);
-            }
-
-            return RedirectToAction("Create", "Card"); // TODO: Create view page stating there are no card associated with it
-        }
-
-        // GET: Dashboards/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Card dashboard = await _context.LoyaltyCards
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (dashboard == null)
             {
-                return NotFound();
+                return RedirectToAction("ErrorDetails", "Card");
             }
 
             return View(dashboard);
+        }
+
+        // GET: Dashboards/ErrorDetails/
+        public async Task<IActionResult> ErrorDetails()
+        {
+            return View();
         }
 
         // GET: Dashboards/Create

@@ -7,20 +7,20 @@
     ViewData["Title"] = "Create";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-<body class="body-content">
-    <h3>Create a new Loyalty Card</h3>
-    <hr />
+    <body class="body-content">
+        <h3>Create a new Loyalty Card</h3>
+        <hr />
 
-    <div>
-        <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Card", this.Model)'" />
-    </div>
-    <br />
-    @*@if (@User.Identity.IsAuthenticated)*@
         <div>
-            @*<a asp-action="Index">Back to List</a>*@
-            <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Card")'" />
+            <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Card", this.Model)'" />
         </div>
-</body>
+        <br />
+       
+            <div>
+                @*<a asp-action="Index">Back to List</a>*@
+                <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Card")'" />
+            </div>
+    </body>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
