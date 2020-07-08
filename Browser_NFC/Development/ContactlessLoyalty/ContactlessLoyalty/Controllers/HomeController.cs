@@ -9,7 +9,7 @@
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Create", "Dashboard");
+            return RedirectToAction("Create", "Card");
         }
 
         public IActionResult About()

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ContactlessLoyalty.Data
 {
-    public class Dashboard
+    public class Card
     {
         public int Id { get; set; }
 

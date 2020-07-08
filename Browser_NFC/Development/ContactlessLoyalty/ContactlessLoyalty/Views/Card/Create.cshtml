@@ -1,4 +1,4 @@
-﻿@model ContactlessLoyalty.Data.Dashboard
+﻿@model ContactlessLoyalty.Data.Card
 
 @{
     ViewData["Title"] = "Create";
@@ -9,12 +9,12 @@
     <hr />
 
     <div>
-        <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Dashboard", this.Model)'" />
+        <input class="btn btn-default btn-shadow" type="button" value="Create New Loyalty Card" onclick="location.href='@Url.Action("CreateCard", "Card", this.Model)'" />
     </div>
     <br />
     <div>
         @*<a asp-action="Index">Back to List</a>*@
-        <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Dashboard")'" />
+        <input type="button" class="btn btn-default btn-shadow" value="See your Loyalty Card" onclick="location.href='@Url.Action("Index", "Card")'" />
     </div>
 </body>
 

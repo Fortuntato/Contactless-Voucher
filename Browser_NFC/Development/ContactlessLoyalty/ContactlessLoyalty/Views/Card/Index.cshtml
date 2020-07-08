@@ -1,4 +1,4 @@
-﻿@model ContactlessLoyalty.Data.Dashboard
+﻿@model ContactlessLoyalty.Data.Card
 @{
     ViewData["Title"] = "Index";
     Layout = "/Views/Shared/_Layout.cshtml";
@@ -30,10 +30,10 @@
 
     <br />
 
-    @if (Model.NumberOfStamps == 9)
+    @if (Model.NumberOfStamps >= 9)
     {
     <div>
-        <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Dashboard")'" style="margin-top:20px" />
+        <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
     </div>
     }
     else

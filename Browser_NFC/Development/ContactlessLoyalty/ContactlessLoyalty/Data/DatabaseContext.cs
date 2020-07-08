@@ -20,6 +20,6 @@ namespace ContactlessLoyalty.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<Dashboard> Dashboard { get; set; }
+        public DbSet<Card> LoyaltyCards { get; set; }
     }
 }

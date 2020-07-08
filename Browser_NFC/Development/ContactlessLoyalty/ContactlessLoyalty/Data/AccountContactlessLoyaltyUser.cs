@@ -25,6 +25,6 @@ namespace ContactlessLoyalty.Data
         /// <summary>
         /// A list of possible cards associated to a customer
         /// </summary>
-        public List<Dashboard> CardDashboards { get; set; }
+        public List<Card> CardList { get; set; }
     }
 }
