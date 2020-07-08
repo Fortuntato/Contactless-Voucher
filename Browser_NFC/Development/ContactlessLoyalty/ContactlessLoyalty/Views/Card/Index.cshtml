@@ -9,56 +9,60 @@
 @inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
     <div class="body-content">
-        <h1>Hi @Model.User.FirstName !</h1>
-        <h3>This is the loyalty card for: <br />  @Model.StoreName</h3>
+        <h1>Hi @Model.User.FirstName @Model.User.LastName!</h1>
+        <h3>This is the loyalty card for: </h3>
+        <h5>@Model.StoreName</h5>
 
         @if (!ViewData.ModelState.IsValid)
         {
-            <span class="text-danger">Collection attempted on invalid time. Check loyalty scheme stamp collection condition.</span>
+        <span class="text-danger">Collection attempted on invalid time. Check loyalty scheme stamp collection condition.</span>
         }
 
         @for (int i = 0; i < Model.NumberOfStamps; i++)
         {
-            <div class="col-xs-4 stampIcon">
-                <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
-            </div>
+        <div class="col-xs-4 stampIcon">
+            <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
+        </div>
         }
 
         @for (int i = 0; i < (int)SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
         {
-            <div class="col-xs-4 stampIcon">
-                <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
-            </div>
+        <div class="col-xs-4 stampIcon">
+            <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
+        </div>
         }
 
         <br />
 
         @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
         {
-            <div>
-                <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
-            </div>
+        <div>
+            <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
+        </div>
         }
         else
         {
-            <div>
-                <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
-            </div>
+        <div>
+            <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
+        </div>
+        <div>
+            <input class="btn btn-default btn-shadow col-sm-3" type="button" value="Stop shaking" onclick="disableIcon()" style="margin-top:20px" />
+        </div>
         }
-
+        <br />
+        <form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
+            @Html.AntiForgeryToken()
+            <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
+            <input type="submit" value="Mock Collection" class="btn btn-default btn-shadow" />
+        </form>
     </div>
 
-<br />
-<form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
-    @Html.AntiForgeryToken()
-    <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
-    <input type="submit" value="Mock Collection" class="btn btn-default" />
-</form>
-
 <script>
-
     //var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
     //console.log(device);
+
+    //var mytest = i.test('Android' + 'Chrome/[.0-9]* Mobile');
+    //console.log("This is valid mobile chrome = " + mytest);
     //console.log(navigator.userAgent.toLowerCase());
 
     var iconToShake = document.getElementById("stampToCollect-0");
@@ -73,9 +77,8 @@
 
             //alert('First alert attempt');
             reader.addEventListener("error", (event) => {
-                console.log(`Argh! ${event.message}`);
-                 alert('No NFC for youu!');
-                });
+                alert("No valid NFC feature. {0}", event.message);
+            });
 
             reader.addEventListener("reading", ({ message, serialNumber }) => {
                 console.log("serial number = " + serialNumber);
@@ -145,6 +148,12 @@
     function activateIcon() {
         if (iconToShake != null) {
             iconToShake.classList.add("shakeIcon");
+        }
+    }
+
+    function disableIcon() {
+        if (iconToShake != null) {
+            iconToShake.className = "removeShake";
         }
     }
 
