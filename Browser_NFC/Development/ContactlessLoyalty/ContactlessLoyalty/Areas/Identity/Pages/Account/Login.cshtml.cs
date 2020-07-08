@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using ContactlessLoyalty.Data;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+﻿// <copyright file="Login.cshtml.cs" company="University Of Westminster">
+//     Contactless Loyalty All rights reserved.
+// </copyright>
+// <author>Shouyi Cui</author>
 
 namespace ContactlessLoyalty.Areas.Identity.Pages.Account
 {
+    using Microsoft.AspNetCore.Authorization;
+    using ContactlessLoyalty.Data;
+    using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [AllowAnonymous]
     public class LoginModel : PageModel
     {

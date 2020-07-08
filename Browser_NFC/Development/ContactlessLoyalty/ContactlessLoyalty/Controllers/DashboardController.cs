@@ -290,7 +290,7 @@ namespace ContactlessLoyalty.Controllers
             }
 
             //Make the api call to send out the voucher
-            ApiVoucherRequest(user.PhoneNumber, editDashboard.StoreName, editDashboard.LastStampDateTime);
+            ApiVoucherRequest(user.PhoneNumber, editDashboard.StoreSchemeCode, editDashboard.LastStampDateTime);
 
             return RedirectToAction("Index", "Dashboard");
         }

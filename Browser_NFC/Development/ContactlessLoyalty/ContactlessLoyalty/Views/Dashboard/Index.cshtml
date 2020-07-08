@@ -51,7 +51,7 @@
     <input type="submit" value="Debug dashboard error" class="btn btn-default" />
 </form>*@
 
-<form asp-action="CollectStamp" asp-controller="Dashboard" method="post" id="magicForm">
+<form asp-action="CollectStamp" asp-controller="Dashboard" method="post" id="hiddenForm">
     @Html.AntiForgeryToken()
     <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
     <input type="submit" value="Debug dashboard error" class="btn btn-default" />
@@ -125,7 +125,7 @@
                                 //document.getElementById("jsonData").value = "Something Example";
 
 
-                                document.getElementById("uniqueStoreCode").value = "Forza Lazio!"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
+                                document.getElementById("uniqueStoreCode").value = "PAYIN"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
 
                                 document.getElementById("hiddenForm").submit();
                             }
