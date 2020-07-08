@@ -4,9 +4,11 @@
 // <author>Shouyi Cui</author>
 
 using ContactlessLoyalty.Data;
+using ContactlessLoyalty.Enumeration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -22,17 +24,20 @@ namespace ContactlessLoyalty.Controllers
         private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
         private readonly DatabaseContext _context;
         private readonly ILogger<Card> _logger;
+        private readonly IConfiguration _configuration;
 
         public CardController(
             DatabaseContext context,
             UserManager<AccountContactlessLoyaltyUser> userManager,
             SignInManager<AccountContactlessLoyaltyUser> signInManager,
-            ILogger<Card> logger)
+            ILogger<Card> logger,
+            IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _configuration = configuration;
         }
 
         // GET: Dashboards
@@ -52,7 +57,7 @@ namespace ContactlessLoyalty.Controllers
                 return View(dashboard);
             }
 
-            return RedirectToAction("Details", "Card"); // TODO: Create view page stating there are no card associated with it
+            return RedirectToAction("Create", "Card"); // TODO: Create view page stating there are no card associated with it
         }
 
         // GET: Dashboards/Details/5
@@ -115,9 +120,6 @@ namespace ContactlessLoyalty.Controllers
 
         public async Task<IActionResult> CreateCard()
         {
-            // Logic for creating a new card
-            Card dashboard = new Card(); // Manually creating new dashboard instance
-
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -125,16 +127,16 @@ namespace ContactlessLoyalty.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            dashboard.User = user;
+            // Parameters for creating a new card
+            Card newCard = new Card(
+                0,                                 // Number of initial vouchers
+                new DateTime(2013, 05, 26),        // Initial date
+                1,                                 // Number of initial stamps
+                "Wembley Stadium Coffee Emporium", // Store name
+                _configuration.GetValue<string>("CustomSettings:StoreSchemeCode"), // Number of stamps required for reward
+                user);
 
-            // Everything to be set to 0 except the store name (Campaign)
-            dashboard.NumberOfStamps = 1;
-            dashboard.NumberOfVouchers = 0;
-            dashboard.LastStampDateTime = new DateTime(2013, 05, 26);
-            dashboard.StoreName = "Wembley Stadium";
-            dashboard.StoreSchemeCode = "PAYIN";
-
-            _context.Add(dashboard);
+            _context.Add(newCard);
             try
             {
                 await _context.SaveChangesAsync();
@@ -259,10 +261,10 @@ namespace ContactlessLoyalty.Controllers
             editDashboard.NumberOfStamps++;
 
             // The following case should not happen because the button for this feature should be hidden
-            if (editDashboard.NumberOfStamps > 10)
+            if (editDashboard.NumberOfStamps > (int)SchemeLimit.WembleyEmporium)
             {
-                editDashboard.NumberOfVouchers++;
-                editDashboard.NumberOfStamps = 0;
+                _logger.LogWarning("User {0} attempt to collect new stamp but reached limit {1}", user.Id, (int)SchemeLimit.WembleyEmporium);
+                editDashboard.NumberOfStamps--; // Remove stamp collected over limit
             }
 
             _context.Update(editDashboard);
@@ -311,7 +313,6 @@ namespace ContactlessLoyalty.Controllers
             {
                 _logger.LogError("Voucher SMS unable to be sent. API Returned FAIL. Check phone number{0} and scheme code: {1}", user.PhoneNumber, editDashboard.StoreSchemeCode);
             }
-
 
             return RedirectToAction("Index", "Card");
         }

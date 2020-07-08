@@ -4,6 +4,7 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 @using Microsoft.AspNetCore.Identity
+@using ContactlessLoyalty.Enumeration
 @inject SignInManager<AccountContactlessLoyaltyUser> SignInManager
 @inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
@@ -16,48 +17,48 @@
 
     @for (int i = 0; i < Model.NumberOfStamps; i++)
     {
-    <div class="col-xs-4 stampIcon">
-        <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
-    </div>
+        <div class="col-xs-4 stampIcon">
+            <img style="margin-top:20px" src="~/images/coffeeStamp.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
+        </div>
     }
 
-    @for (int i = 0; i < 9 - Model.NumberOfStamps; i++)
+    @for (int i = 0; i < (int) SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
     {
-    <div class="col-xs-4 stampIcon">
-        <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
-    </div>
+        <div class="col-xs-4 stampIcon">
+            <img style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stamp-@i" onclick="readFromImageClick('@i')" />
+        </div>
     }
 
     <br />
 
-    @if (Model.NumberOfStamps >= 9)
+    @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
     {
-    <div>
-        <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
-    </div>
+        <div>
+            <input class="btn btn-default btn-shadow" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" style="margin-top:20px" />
+        </div>
     }
     else
     {
-    <div>
-        <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
-    </div>
+        <div>
+            <input class="btn btn-default btn-shadow" type="button" value="Start scanning" onclick="startNFC()" style="margin-top:20px" />
+        </div>
     }
 
 </div>
 
 @*<form asp-action="CollectStamp" asp-controller="Dashboard" method="post"  id="hiddenForm">
-    @Html.AntiForgeryToken()
-    <input asp-net-class="form-control" type="text" value="A value" id="uniqueStoreCode" />
-    <input type="submit" value="Debug dashboard error" class="btn btn-default" />
-</form>*@
+        @Html.AntiForgeryToken()
+        <input asp-net-class="form-control" type="text" value="A value" id="uniqueStoreCode" />
+        <input type="submit" value="Debug dashboard error" class="btn btn-default" />
+    </form>*@
 
-<form asp-action="CollectStamp" asp-controller="Dashboard" method="post" id="hiddenForm">
+<form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
     @Html.AntiForgeryToken()
     <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
     <input type="submit" value="Debug dashboard error" class="btn btn-default" />
 </form>
 
-    <script>
+<script>
 
     //var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
     //console.log(device);
@@ -223,10 +224,10 @@
             console.log("Argh! " + error);
         }
     }
-    </script>
+</script>
 
-    @* Create a method to check if there NFC available on the phone to show an alert
-        @if (!string.IsNullOrEmpty(Model.StoreName))
-        {
-            <script>alert("Welcome to @Model.StoreName");</script>
-        }*@
+@* Create a method to check if there NFC available on the phone to show an alert
+    @if (!string.IsNullOrEmpty(Model.StoreName))
+    {
+        <script>alert("Welcome to @Model.StoreName");</script>
+    }*@

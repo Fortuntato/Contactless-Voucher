@@ -10,6 +10,20 @@ namespace ContactlessLoyalty.Data
 {
     public class Card
     {
+        public Card()
+        {
+        }
+
+        public Card(int numberOfVouchers, DateTime lastStampDateTime, int numberOfStamps, string storeName, string storeSchemeCode, AccountContactlessLoyaltyUser user)
+        {
+            NumberOfVouchers = numberOfVouchers;
+            LastStampDateTime = lastStampDateTime;
+            NumberOfStamps = numberOfStamps;
+            StoreName = storeName;
+            StoreSchemeCode = storeSchemeCode;
+            User = user;
+        }
+
         public int Id { get; set; }
 
         [MaxLength(5)]
