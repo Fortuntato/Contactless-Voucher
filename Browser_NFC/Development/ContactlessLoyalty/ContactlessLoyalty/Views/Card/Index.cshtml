@@ -11,9 +11,6 @@
 <div class="body-content">
     <h1>Hi @Model.User.FirstName !</h1>
     <h3>This is the loyalty card for: <br />  @Model.StoreName</h3>
-    <p>
-        <a asp-action="Create">Go to get a new loyalty card</a>
-    </p>
 
     @for (int i = 0; i < Model.NumberOfStamps; i++)
     {

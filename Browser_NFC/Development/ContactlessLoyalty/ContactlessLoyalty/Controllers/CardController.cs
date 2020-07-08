@@ -108,11 +108,20 @@ namespace ContactlessLoyalty.Controllers
 
         public async Task<IActionResult> CreateCard()
         {
+
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            // Check if the user has already a card
+            List<Card> userCards = await _context.LoyaltyCards.Where(x => x.User.Id == user.Id).ToListAsync();
+
+            if (userCards.Count > 0)
+            {
+                return RedirectToAction("OneCardLimit", "Card");
             }
 
             // Parameters for creating a new card
@@ -131,10 +140,16 @@ namespace ContactlessLoyalty.Controllers
             }
             catch (Exception error)
             {
-                Console.WriteLine(error);
+                _logger.LogError(error.Message);
             }
 
             return RedirectToAction("Index", "Card");
+        }
+
+        // GET: Card/OneCardLimit
+        public async Task<IActionResult> OneCardLimit()
+        {
+            return View();
         }
 
         // GET: Dashboards/Edit/5
@@ -191,34 +206,7 @@ namespace ContactlessLoyalty.Controllers
             return View(dashboard);
         }
 
-        // GET: Dashboards/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            Card dashboard = await _context.LoyaltyCards
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dashboard == null)
-            {
-                return NotFound();
-            }
-
-            return View(dashboard);
-        }
-
-        // POST: Dashboards/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            Card dashboard = await _context.LoyaltyCards.FindAsync(id);
-            _context.LoyaltyCards.Remove(dashboard);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
         private bool DashboardExists(int id)
         {
