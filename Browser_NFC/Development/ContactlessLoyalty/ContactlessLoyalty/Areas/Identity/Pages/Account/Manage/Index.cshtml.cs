@@ -1,4 +1,9 @@
-﻿namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
+﻿// <copyright company="University Of Westminster">
+//     Contactless Loyalty All rights reserved.
+// </copyright>
+// <author>Shouyi Cui</author>
+
+namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
 {
     using ContactlessLoyalty.Data;
     using Microsoft.AspNetCore.Identity;

@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿// <copyright company="University Of Westminster">
+//     Contactless Loyalty All rights reserved.
+// </copyright>
+// <author>Shouyi Cui</author>
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactlessLoyalty.Data

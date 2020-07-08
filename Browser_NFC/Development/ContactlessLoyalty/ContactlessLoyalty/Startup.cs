@@ -1,4 +1,9 @@
-﻿using ContactlessLoyalty.Data;
+﻿// <copyright company="University Of Westminster">
+//     Contactless Loyalty All rights reserved.
+// </copyright>
+// <author>Shouyi Cui</author>
+
+using ContactlessLoyalty.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

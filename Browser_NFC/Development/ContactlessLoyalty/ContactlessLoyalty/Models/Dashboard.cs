@@ -1,3 +1,8 @@
+// <copyright company="University Of Westminster">
+//     Contactless Loyalty All rights reserved.
+// </copyright>
+// <author>Shouyi Cui</author>
+
 using System;
 using System.ComponentModel.DataAnnotations;
 

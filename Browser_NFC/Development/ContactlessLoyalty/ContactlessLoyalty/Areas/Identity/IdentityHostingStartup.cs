@@ -1,4 +1,4 @@
-﻿// <copyright file="IdentityHostingStartup.cs" company="University Of Westminster">
+﻿// <copyright company="University Of Westminster">
 //     Contactless Loyalty All rights reserved.
 // </copyright>
 // <author>Shouyi Cui</author>

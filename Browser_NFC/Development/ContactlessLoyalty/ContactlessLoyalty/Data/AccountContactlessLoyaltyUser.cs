@@ -1,4 +1,9 @@
-﻿namespace ContactlessLoyalty.Data
+﻿// <copyright company="University Of Westminster">
+//     Contactless Loyalty All rights reserved.
+// </copyright>
+// <author>Shouyi Cui</author>
+
+namespace ContactlessLoyalty.Data
 {
     using Microsoft.AspNetCore.Identity;
     using System.Collections.Generic;
