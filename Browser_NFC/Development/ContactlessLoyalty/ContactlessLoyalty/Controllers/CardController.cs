@@ -179,8 +179,14 @@ namespace ContactlessLoyalty.Controllers
             Card editCard = await _context.LoyaltyCards
                 .FirstOrDefaultAsync(m => m.User.Id == user.Id);
 
-            // Check for valid collection
+            // Check for valid collection date
             DateTime currentTime = DateTime.Now.ToLocalTime();
+
+            // Check store scheme date
+            if (editCard.StoreSchemeCode == StoreSchemeCode)
+            {
+                // TODO
+            }
 
             // Customer can collect the stamp once a day
             if (isTimeValid(currentTime, editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate")))
@@ -253,11 +259,11 @@ namespace ContactlessLoyalty.Controllers
             return RedirectToAction("VoucherSent", "Card");
         }
 
-        public bool ApiVoucherRequest(string phone, string storeName, DateTime timeRequest)
+        public bool ApiVoucherRequest(string phone, string schemeCode, DateTime timeRequest)
         {
             string apiBase = "http://testext.i-movo.com/Api/receivesms.aspx?";
 
-            string apiRequestUrl = string.Format("{0}From={1}&To={2}&Msg={3}&ReceivedTimeStamp={4}&Mode={5}", apiBase, phone, phone, storeName, timeRequest, "sync");
+            string apiRequestUrl = string.Format("{0}From={1}&To={2}&Msg={3}&ReceivedTimeStamp={4}&Mode={5}", apiBase, phone, phone, schemeCode, timeRequest, "sync");
 
             using (HttpClient client = new HttpClient())
             {
