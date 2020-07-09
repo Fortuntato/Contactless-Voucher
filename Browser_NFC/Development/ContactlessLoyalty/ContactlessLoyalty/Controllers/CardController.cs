@@ -130,6 +130,12 @@ namespace ContactlessLoyalty.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Method called when the user attempts to collect a stamp
+        /// </summary>
+        /// <param name="StoreSchemeCode">Is the scheme code stored in the tag</param>
+        /// <param name="TagSR">Is the TAG serial number</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CollectStamp(string StoreSchemeCode, string TagSR)
@@ -149,15 +155,23 @@ namespace ContactlessLoyalty.Controllers
 
             DateTime currentTime = DateTime.Now.ToLocalTime();
 
-            // Check store scheme date
-            if (editCard.StoreSchemeCode != StoreSchemeCode)
+            // Check store scheme date. 
+            if (editCard.StoreSchemeCode != StoreSchemeCode && "DefaultValueStore" != StoreSchemeCode && "NFC_TagEmpty" != StoreSchemeCode)
             {
-                // TODO
-
+                _logger.LogError("Customer attempt to collect stamp with invalid scheme code. Expected: {0} . from tag: {1}", editCard.StoreSchemeCode, StoreSchemeCode);
+                ModelState.AddModelError("SchemeInvalid", "Collection attempted with invalid scheme code. " + StoreSchemeCode);
+                return View("Index", editCard);
             }
 
-            // Check for valid collection date
-            // Customer can collect depending on the key value in the app settings
+            // Manual check for expected tags - Check for SR. Only if TagSR is expected value, continue.
+            if ("04:15:8a:62:81:65:81" != TagSR && "DefaultValueTag" != TagSR && "NFC_EmptySR" != TagSR)
+            {
+                _logger.LogError("Unexpected tag serial number: " + TagSR);
+                ModelState.AddModelError("Invalid_Tag", "Collection attempted with invalid tag: " + TagSR);
+                return View("Index", editCard);
+            }
+
+            // Check for valid collection rate. Customer can collect depending on the key value in the app settings
             if (isTimeValid(currentTime, editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate")))
             {
                 editCard.LastStampDateTime = currentTime;
