@@ -8,40 +8,40 @@
 @inject SignInManager<AccountContactlessLoyaltyUser> SignInManager
 @inject UserManager<AccountContactlessLoyaltyUser> UserManager
 
-    <div class="body-content">
-        <h1>Hi @Model.User.FirstName @Model.User.LastName!</h1>
-        <h3>This is the loyalty card for: </h3>
-        <h5>@Model.StoreName</h5>
+<div class="body-content">
+    <h1>Hi @Model.User.FirstName @Model.User.LastName!</h1>
+    <h3>This is the loyalty card for: </h3>
+    <h5>@Model.StoreName</h5>
 
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <span class="text-danger">Collection attempted on invalid time. <br />Check loyalty scheme stamp collection condition.</span>
-        }
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <span class="text-danger">Collection attempted on invalid time. <br />Check loyalty scheme stamp collection condition.</span>
+    }
 
-        @for (int i = 0; i < Model.NumberOfStamps; i++)
-        {
+    @for (int i = 0; i < Model.NumberOfStamps; i++)
+    {
         <div class="col-xs-4 stampIcon">
             <img class="buttonTopMargin" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
         </div>
-        }
+    }
 
-        @for (int i = 0; i < (int)SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
-        {
+    @for (int i = 0; i < (int)SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
+    {
         <div class="col-xs-4 stampIcon">
             <img class="buttonTopMargin" style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
         </div>
-        }
+    }
 
-        <br />
+    <br />
 
-        @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
-        {
+    @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
+    {
         <div>
             <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" />
         </div>
-        }
-        else
-        {
+    }
+    else
+    {
         <div>
             <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()" />
         </div>
@@ -52,15 +52,16 @@
             If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
             Please use the <b>Mock Collection</b> button below instead.
         </p>
-        }
         <br />
         <form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
             @Html.AntiForgeryToken()
             <input name="StoreSchemeCode" class="form-control" type="hidden" value="DefaultValueStore" id="uniqueStoreCode" />
-            <input name="TagSR" class="form-control" type="hidden" value="DefaultValueTag" id="tagSR"/>
+            <input name="TagSR" class="form-control" type="hidden" value="DefaultValueTag" id="tagSR" />
             <input type="submit" value="Mock Collection" class="btn btn-default btn-shadow" />
         </form>
-    </div>
+    }
+
+</div>
 
 <script>
     //var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
@@ -90,7 +91,7 @@
                 //document.getElementById("tagSR").value = serialNumber;
 
                 const decoder = new TextDecoder();
-                
+
                 for (const record of message.records) {
                     console.log(record.recordType);
                     switch (record.recordType) {
