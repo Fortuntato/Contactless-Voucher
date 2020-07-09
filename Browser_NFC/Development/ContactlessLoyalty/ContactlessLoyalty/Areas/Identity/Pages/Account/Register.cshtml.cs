@@ -51,7 +51,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             [Required]
             [Phone]
             [Display(Name = "Mobile Phone Number")]
-            //// [RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
+            //// TOENABLE[RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
             public string PhoneNumber { get; set; }
 
             [Required]
