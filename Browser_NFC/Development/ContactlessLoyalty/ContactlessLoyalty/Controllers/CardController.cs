@@ -272,19 +272,19 @@ namespace ContactlessLoyalty.Controllers
             switch (redemptionRate.ToLower())
             {
                 case "hourly":
-                    if ((currentTime - lastStampDateTime).Hours > 0)
+                    if ((currentTime - lastStampDateTime).TotalHours >= 1)
                     {
                         return true;
                     }
                     break;
                 case "daily":
-                    if ((currentTime - lastStampDateTime.Date).Days > 0)
+                    if ((currentTime - lastStampDateTime).TotalDays >= 1)
                     {
                         return true;
                     }
                     break;
                 case "weekly":
-                    if ((currentTime - lastStampDateTime.Date).Days > 6)
+                    if ((currentTime - lastStampDateTime).TotalDays >= 7)
                     {
                         return true;
                     }
