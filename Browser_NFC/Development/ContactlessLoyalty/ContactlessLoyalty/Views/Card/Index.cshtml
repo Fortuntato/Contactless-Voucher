@@ -15,7 +15,7 @@
 
         @if (!ViewData.ModelState.IsValid)
         {
-        <span class="text-danger">Collection attempted on invalid time. <br />Check loyalty scheme stamp collection condition.</span>
+            <span class="text-danger">Collection attempted on invalid time. <br />Check loyalty scheme stamp collection condition.</span>
         }
 
         @for (int i = 0; i < Model.NumberOfStamps; i++)
@@ -37,24 +37,27 @@
         @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
         {
         <div>
-            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'"/>
+            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" />
         </div>
         }
         else
         {
         <div>
-            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()"/>
+            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()" />
         </div>
-        <p class="buttonTopMargin">If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
-        Please use the <b>Mock Collection</b> button instead.</p>
         <div>
-            <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop shaking" onclick="disableIcon()"/>
+            <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop shaking" onclick="disableIcon()" />
         </div>
+        <p class="buttonTopMargin">
+            If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
+            Please use the <b>Mock Collection</b> button below instead.
+        </p>
         }
         <br />
         <form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
             @Html.AntiForgeryToken()
-            <input asp-for="StoreSchemeCode" class="form-control" type="hidden" value="A value" id="uniqueStoreCode" />
+            <input name="StoreSchemeCode" class="form-control" type="hidden" value="DefaultValueStore" id="uniqueStoreCode" />
+            <input name="TagSR" class="form-control" type="hidden" value="DefaultValueTag" id="tagSR"/>
             <input type="submit" value="Mock Collection" class="btn btn-default btn-shadow" />
         </form>
     </div>
@@ -84,46 +87,25 @@
 
             reader.addEventListener("reading", ({ message, serialNumber }) => {
                 console.log("serial number = " + serialNumber);
-                var text = "";
-                const decoder = new TextDecoder();
-                var newLine = "\n";
+                //document.getElementById("tagSR").value = serialNumber;
 
+                const decoder = new TextDecoder();
+                
                 for (const record of message.records) {
+                    console.log(record.recordType);
                     switch (record.recordType) {
                         case "empty":
-                            text += newLine + "(empty case)";
                             document.getElementById("uniqueStoreCode").value = "NFC_TagEmpty";
+                            document.getElementById("tagSR").value = "NFC_EmptySR"; //Override for empty case
                             document.getElementById("hiddenForm").submit(); // Test to see if demo can be made with other cards
                             break;
-                        case "text":
-                            text += newLine + decoder.decode(record.data) + "(text case)";
-                            break;
-                        case "url":
-                            text += newLine + decoder.decode(record.data) + "URL case";
-                            break;
-                        case "smart-poster":
-                            text += newLine + decoder.decode(record.data) + "(smart poster case)";
-                            break;
-                        case "absolute-url":
-                            text += newLine + decoder.decode(record.data) + "(absolute URL)";
-                            break;
                         case "mime":
-
                             if (record.mediaType === 'application/json') {
                                 const json = JSON.parse(decoder.decode(record.data));
                                 console.log(json);
-                                text = decoder.decode(record.data);
-                                // To display json object inside html page
-                                var mainContainer = document.getElementById("jsonData");
-                                //var div = document.createElement("div");
-                                //div.innerHTML = "Name: " + json.name + " Position: " + json.position;
-                                //mainContainer.appendChild(div);
-                                @*console.log(document.getElementById("stamp-1"));
-                                console.log("User phone number " + @Model.User.PhoneNumber)*@
-                                //document.getElementById("jsonData").value = "Something Example";
-
-                                document.getElementById("uniqueStoreCode").value = "NFC_Tag"; // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
-
+                                document.getElementById("tagSR").value = serialNumber;
+                                // Value to be taken from the NFC tag and passed to the back-end to be checked with the database
+                                document.getElementById("uniqueStoreCode").value = json.schemeCode;
                                 document.getElementById("hiddenForm").submit();
                             }
                             break;
@@ -134,15 +116,9 @@
                             break;
                     }
                 }
-
-                console.log(`> Serial Number: ${serialNumber}`);
-                console.log(`> Records: (${message.records.length})`);
-
-                //document.getElementById("jsonData").innerHTML = text;
-
             });
         } catch (error) {
-            console.log("Argh! " + error);
+            console.log(error);
         }
     }
 

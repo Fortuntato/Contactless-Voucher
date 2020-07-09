@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="body-content">
+    <h3>How did you find this page?!</h3>
+    <p>Enter here the Scheme Code to store in the TAG</p>
+    <input value="" class="form-control" id="textField" />
+    <div>
+        <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="WriteNFC()" />
+    </div>
+</div>
+
+<script>
+
+    async function WriteNFC() {
+        try {
+            const writer = new NDEFWriter();
+            const encoder = new TextEncoder();
+
+            var textToWrite = document.getElementById("textField").value;
+            console.log("Writing:" + textToWrite);
+
+            writer.write({
+                records: [
+                    {
+                        recordType: "mime",
+                        mediaType: "application/json",
+                        data: encoder.encode(JSON.stringify({
+                            schemeCode: textToWrite,
+                        }))
+                    }]
+            });
+        } catch (error) {
+            console.log("NFC not available." + error);
+        }
+    }
+
+
+
+
+</script>
