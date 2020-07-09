@@ -72,40 +72,6 @@ namespace ContactlessLoyalty.Controllers
             return View();
         }
 
-        // POST: Dashboards/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NumberOfVouchers,LastStampDateTime,NumberOfStamps,StoreName")] Card dashboard)
-        {
-            if (ModelState.IsValid)
-            {
-                // Get the user id to store with the new card
-                AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-                }
-
-                dashboard.User = user;
-
-                _context.Add(dashboard);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception error)
-                {
-                    Console.WriteLine(error);
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(dashboard);
-        }
-
         public async Task<IActionResult> CreateCard()
         {
 
@@ -152,19 +118,21 @@ namespace ContactlessLoyalty.Controllers
             return View();
         }
 
+        // GET: Card/VoucherSent
         public async Task<IActionResult> VoucherSent()
         {
             return View();
         }
 
-        private bool DashboardExists(int id)
+        // GET: Card/Write - This is a hidden page used for writing into the Tag appropriate details
+        public async Task<IActionResult> Write()
         {
-            return _context.LoyaltyCards.Any(e => e.Id == id);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CollectStamp(string StoreSchemeCode)
+        public async Task<IActionResult> CollectStamp(string StoreSchemeCode, string TagSR)
         {
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
@@ -179,16 +147,17 @@ namespace ContactlessLoyalty.Controllers
             Card editCard = await _context.LoyaltyCards
                 .FirstOrDefaultAsync(m => m.User.Id == user.Id);
 
-            // Check for valid collection date
             DateTime currentTime = DateTime.Now.ToLocalTime();
 
             // Check store scheme date
-            if (editCard.StoreSchemeCode == StoreSchemeCode)
+            if (editCard.StoreSchemeCode != StoreSchemeCode)
             {
                 // TODO
+
             }
 
-            // Customer can collect the stamp once a day
+            // Check for valid collection date
+            // Customer can collect depending on the key value in the app settings
             if (isTimeValid(currentTime, editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate")))
             {
                 editCard.LastStampDateTime = currentTime;
