@@ -15,50 +15,52 @@
 
     @if (!ViewData.ModelState.IsValid)
     {
-        <span class="text-danger">Collection attempted on invalid time. <br />Check loyalty scheme stamp collection condition.</span>
+    <p>@ViewData.ModelState.Values.</p>
+
+    <span class="text-danger">Collection attempted on invalid time or scheme code scanned invalid. <br />Check loyalty scheme stamp collection condition.</span>
     }
 
     @for (int i = 0; i < Model.NumberOfStamps; i++)
     {
-        <div class="col-xs-4 stampIcon">
-            <img class="buttonTopMargin" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
-        </div>
+    <div class="col-xs-4 stampIcon">
+        <img class="buttonTopMargin" src="~/images/coffeeStamp.svg" alt="" id="stampCollected-@i" onclick="readFromImageClick('@i')" />
+    </div>
     }
 
     @for (int i = 0; i < (int)SchemeLimit.WembleyEmporium - Model.NumberOfStamps; i++)
     {
-        <div class="col-xs-4 stampIcon">
-            <img class="buttonTopMargin" style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
-        </div>
+    <div class="col-xs-4 stampIcon">
+        <img class="buttonTopMargin" style="margin-top:20px" src="~/images/coffeeIcon.svg" alt="" id="stampToCollect-@i" onclick="readFromImageClick('@i')" />
+    </div>
     }
 
     <br />
 
     @if (Model.NumberOfStamps >= (int)SchemeLimit.WembleyEmporium)
     {
-        <div>
-            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" />
-        </div>
+    <div>
+        <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Receive your digital Voucher by SMS!" onclick="location.href='@Url.Action("ResetStamp", "Card")'" />
+    </div>
     }
     else
     {
-        <div>
-            <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()" />
-        </div>
-        <div>
-            <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop shaking" onclick="disableIcon()" />
-        </div>
-        <p class="buttonTopMargin">
-            If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
-            Please use the <b>Mock Collection</b> button below instead.
-        </p>
-        <br />
-        <form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
-            @Html.AntiForgeryToken()
-            <input name="StoreSchemeCode" class="form-control" type="hidden" value="DefaultValueStore" id="uniqueStoreCode" />
-            <input name="TagSR" class="form-control" type="hidden" value="DefaultValueTag" id="tagSR" />
-            <input type="submit" value="Mock Collection" class="btn btn-default btn-shadow" />
-        </form>
+    <div>
+        <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()" />
+    </div>
+    <div>
+        <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop shaking" onclick="disableIcon()" />
+    </div>
+    <p class="buttonTopMargin">
+        If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
+        Please use the <b>Mock Collection</b> button below instead.
+    </p>
+    <br />
+    <form asp-action="CollectStamp" asp-controller="Card" method="post" id="hiddenForm">
+        @Html.AntiForgeryToken()
+        <input name="StoreSchemeCode" class="form-control" type="hidden" value="DefaultValueStore" id="uniqueStoreCode" />
+        <input name="TagSR" class="form-control" type="hidden" value="DefaultValueTag" id="tagSR" />
+        <input type="submit" value="Mock Collection" class="btn btn-default btn-shadow" />
+    </form>
     }
 
 </div>
