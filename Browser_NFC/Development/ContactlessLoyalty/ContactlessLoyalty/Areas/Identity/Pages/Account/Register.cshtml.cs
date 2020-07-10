@@ -64,6 +64,10 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "I have read and agreed to the")]
+            public bool AcceptTermsAndConditions { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -80,6 +84,12 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (!Input.AcceptTermsAndConditions)
+            {
+                ModelState.AddModelError("AcceptTermsAndConditions", "Please accept the Terms and Conditions agreement.");
+            };
+
             if (ModelState.IsValid)
             {
                 AccountContactlessLoyaltyUser user = new AccountContactlessLoyaltyUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.PhoneNumber, PhoneNumber = Input.PhoneNumber };

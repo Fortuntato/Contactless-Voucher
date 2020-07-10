@@ -15,7 +15,9 @@ for details on configuring this project to bundle and minify static web assets. 
 html, body {
     overflow-x: hidden;
 }
-
+a {
+    color: #94DBED;
+}
 /*footer {
     position: fixed;
     border-bottom:5px;
@@ -45,6 +47,10 @@ body {
 .form-control {
     background-color: #d9edf700;
     color: #DBE4E3;
+}
+
+.formTopMargin{
+    margin-top: 10px;
 }
 
 /* Carousel */

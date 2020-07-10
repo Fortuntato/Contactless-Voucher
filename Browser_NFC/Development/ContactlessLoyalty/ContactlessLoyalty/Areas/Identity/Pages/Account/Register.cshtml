@@ -4,17 +4,17 @@
     ViewData["Title"] = "Register";
     Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
 }
-
+<div class="body-content formTopMargin">
     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label asp-for="Input.FirstName"></label>
                     <input asp-for="Input.FirstName" class="form-control" />
                     <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label asp-for="Input.LastName"></label>
                     <input asp-for="Input.LastName" class="form-control" />
@@ -45,13 +45,21 @@
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.AcceptTermsAndConditions" style="margin-left:5px">
+                            <input asp-for="Input.AcceptTermsAndConditions" />
+                            @Html.DisplayNameFor(m => m.Input.AcceptTermsAndConditions) <a href="https://www.google.co.uk"> Terms and Conditions.</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-
         <div asp-validation-summary="All" class="text-danger"></div>
-
         <button type="submit" class="btn btn-default btn-shadow">Submit</button>
     </form>
-
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
