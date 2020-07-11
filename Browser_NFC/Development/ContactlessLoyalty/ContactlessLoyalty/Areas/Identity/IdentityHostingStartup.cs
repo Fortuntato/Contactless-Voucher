@@ -39,6 +39,7 @@ namespace ContactlessLoyalty.Areas.Identity
                         options.Password.RequireLowercase = false; //TOENABLE
                         options.Password.RequireUppercase = false; //TOENABLE
                         options.Password.RequireNonAlphanumeric = false; //TOENABLE
+                        options.Password.RequireDigit = false; //TOENABLE
                     }).AddEntityFrameworkStores<DatabaseContext>();
             });
         }
