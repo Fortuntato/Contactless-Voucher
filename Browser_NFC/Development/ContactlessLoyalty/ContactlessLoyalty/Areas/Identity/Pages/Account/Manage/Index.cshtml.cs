@@ -93,7 +93,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
             if (Input.PhoneNumber != phoneNumber)
             {
                 // Prevent the user from phone number/username to an already existing number/username
-                List<AccountContactlessLoyaltyUser> listofUsers = _context.Users.Where(x => x.UserName == phoneNumber || x.PhoneNumber == phoneNumber).ToList();
+                List<AccountContactlessLoyaltyUser> listofUsers = _context.Users.Where(x => x.UserName == Input.PhoneNumber || x.PhoneNumber == Input.PhoneNumber).ToList();
                 if (listofUsers.Count > 0)
                 {
                     // There is already a user with this number stored
