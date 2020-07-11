@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ContactlessLoyalty.Program">
+    <Position X="9.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ContactlessLoyalty.Startup">
+    <Position X="21.75" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Configuration" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Controllers.CardController">
+    <Position X="12.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAQAAgCBAAAAABBAAAQIAAAAEAEAAEgAAEAQAA=</HashCode>
+      <FileName>Controllers\CardController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_configuration" />
+      <Field Name="_context" />
+      <Field Name="_logger" />
+      <Field Name="_signInManager" />
+      <Field Name="_userManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Controllers.HomeController">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQEACAAAAAAAAAAAAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.Manage.ChangePasswordModel">
+    <Position X="20.25" Y="8.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <AssociationLine Name="_signInManager" Type="Microsoft.AspNetCore.Identity.SignInManager&lt;TUser&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.25" Y="9.859" />
+        <Point X="18.25" Y="9.859" />
+        <Point X="18.25" Y="8.312" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAgAABAAAAAMAAAAAAAAAAEAIAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ChangePassword.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_logger" />
+      <Field Name="_signInManager" />
+      <Field Name="_userManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.Manage.IndexModel">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.Manage.IndexModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Manage\Index.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABEAgAAAABAAgAABAAAAAEAAAAAAAAAAEAIAAAAg=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\Index.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+      <Field Name="_userManager" />
+      <Field Name="_signInManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.Manage.ManageNavPages">
+    <Position X="10.5" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAgAAAAAgAAAAAAAAAAgAAAAEAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Manage\ManageNavPages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.LoginModel">
+    <Position X="25.25" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.LoginModel.InputModel">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Login.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAgAABAAAAAMAAAAQAAAAIEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Login.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_signInManager" />
+      <Field Name="_logger" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.LogoutModel">
+    <Position X="23" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Logout.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_logger" />
+      <Field Name="_signInManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.RegisterModel">
+    <Position X="14.25" Y="8.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="ContactlessLoyalty.Areas.Identity.Pages.Account.RegisterModel.InputModel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Identity\Pages\Account\Register.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAABAAAAAMAAAAAAAAAYEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Register.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_logger" />
+      <Field Name="_signInManager" />
+      <Field Name="_userManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Areas.Identity.IdentityHostingStartup" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\IdentityHostingStartup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ContactlessLoyalty.Data.AccountContactlessLoyaltyUser">
+    <Position X="10" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Data\AccountContactlessLoyaltyUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ContactlessLoyalty.Data.DatabaseContext">
+    <Position X="20.5" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\DatabaseContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="LoyaltyCards" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ContactlessLoyalty.Data.Card">
+    <Position X="9.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAADQIAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Models\Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ContactlessLoyalty.Migrations.InitialCreate">
+    <Position X="27.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20200703035148_InitialCreate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ContactlessLoyalty.Migrations.AddStoreSchemeCode">
+    <Position X="26.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Migrations\20200707130519_AddStoreSchemeCode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.EntityFrameworkCore.DbSet&lt;TEntity&gt;" Collapsed="true">
+    <Position X="25.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.SignInManager&lt;TUser&gt;" Collapsed="true">
+    <Position X="17.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.UserManager&lt;TUser&gt;" Collapsed="true">
+    <Position X="18.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="Microsoft.Extensions.Configuration.IConfiguration" Collapsed="true">
+    <Position X="24.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Microsoft.Extensions.Logging.ILogger&lt;TCategoryName&gt;" Collapsed="true">
+    <Position X="19.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Enum Name="ContactlessLoyalty.Enumeration.SchemeLimit">
+    <Position X="25.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enumeration\SchemeLimit.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
