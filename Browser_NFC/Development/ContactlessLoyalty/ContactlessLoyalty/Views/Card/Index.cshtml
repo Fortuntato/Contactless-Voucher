@@ -46,7 +46,7 @@
         <input class="btn btn-default btn-shadow buttonTopMargin" type="button" value="Start scanning" onclick="startNFC()" />
     </div>
     <div>
-        <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop shaking" onclick="disableIcon()" />
+        <input class="btn btn-default btn-shadow col-sm-3 buttonTopMargin" type="button" value="Stop floating" onclick="disableIcon()" />
     </div>
     <p class="buttonTopMargin">
         If you don't see an icon shaking after clicking <b>Start scanning</b> it means your device does not support the feature yet.<br />
@@ -60,7 +60,6 @@
         <input type="submit" value="Mock Collection" class="btn btn-default btn-shadow" />
     </form>
     }
-
 </div>
 
 <script>
@@ -81,7 +80,6 @@
             activateIcon();
             console.log("> Scan started");
 
-            //alert('First alert attempt');
             reader.addEventListener("error", (event) => {
                 alert("No valid NFC feature. " + event.message);
             });
@@ -140,9 +138,3 @@
         console.log("User clicked icon " + imageNumber);
     }
 </script>
-
-@* Create a method to check if there NFC available on the phone to show an alert
-    @if (!string.IsNullOrEmpty(Model.StoreName))
-    {
-        <script>alert("Welcome to @Model.StoreName");</script>
-    }*@
