@@ -9,17 +9,22 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Threading.Tasks;
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<AccountContactlessLoyaltyUser> _userManager;
         private readonly SignInManager<AccountContactlessLoyaltyUser> _signInManager;
+        private readonly DatabaseContext _context;
 
         public IndexModel(
+            DatabaseContext context,
             UserManager<AccountContactlessLoyaltyUser> userManager,
             SignInManager<AccountContactlessLoyaltyUser> signInManager)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -87,6 +92,15 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
             string phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
+                // Prevent the user from phone number/username to an already existing number/username
+                List<AccountContactlessLoyaltyUser> listofUsers = _context.Users.Where(x => x.UserName == phoneNumber || x.PhoneNumber == phoneNumber).ToList();
+                if (listofUsers.Count > 0)
+                {
+                    // There is already a user with this number stored
+                    StatusMessage = "This number has been used already. If you have forgotten the password, please contact us.";
+                    return RedirectToPage();
+                }
+
                 // Update the username along with the phone number since username field is checked for login
                 IdentityResult setUsername = await _userManager.SetUserNameAsync(user, Input.PhoneNumber);
                 IdentityResult setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
