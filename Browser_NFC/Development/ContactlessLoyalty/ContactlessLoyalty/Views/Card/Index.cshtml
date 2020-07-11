@@ -71,7 +71,7 @@
     //console.log("This is valid mobile chrome = " + mytest);
     //console.log(navigator.userAgent.toLowerCase());
 
-    var iconToShake = document.getElementById("stampToCollect-0");
+    var iconToFloat = document.getElementById("stampToCollect-0");
 
     async function startNFC() {
         try {
@@ -124,14 +124,14 @@
     }
 
     function activateIcon() {
-        if (iconToShake != null) {
-            iconToShake.classList.add("shakeIcon");
+        if (iconToFloat != null) {
+            iconToFloat.classList.add("iconFloatingEffect");
         }
     }
 
     function disableIcon() {
-        if (iconToShake != null) {
-            iconToShake.className = "buttonTopMargin";
+        if (iconToFloat != null) {
+            iconToFloat.className = "buttonTopMargin";
         }
     }
 

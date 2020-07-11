@@ -15,9 +15,11 @@ for details on configuring this project to bundle and minify static web assets. 
 html, body {
     overflow-x: hidden;
 }
+
 a {
     color: #94DBED;
 }
+
 /*footer {
     position: fixed;
     border-bottom:5px;
@@ -64,11 +66,6 @@ body {
     width: 100%;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -76,8 +73,6 @@ body {
         display: none;
     }
 }
-
-
 
 /*for tab control*/
 div.login-logout-tab div.card-header {
@@ -175,6 +170,11 @@ div.login-logout-tab a.nav-link {
     border: 0px;
 }
 
+/*Manage account options style*/
+.nav-pills > li.active > a {
+    background-image: linear-gradient(to right, #0016A1, #0D3ECA, #3BD7FF);
+}
+
 .navbar-inverse {
     background-image: linear-gradient(to right, #0016A1, #0D3ECA, #3BD7FF);
     align-content: center;
@@ -214,17 +214,23 @@ footer {
     height: 4.5rem; /* Footer height */
 }
 
+.buttonTopMargin {
+    margin-top: 20px;
+}
 
-/*Tremble function for the stamp icons*/
-.shakeIcon {
-    /* Start the shake animation and make the animation last for 0.5 seconds */
+/*Overriding alert error message for manage account options*/
+.alert-success {
+    color: #0016A1;
+    background-color: #DBE4E3;
+    border-color: #DBE4E3;
+}
+
+/*Floating function for the stamp icons*/
+.iconFloatingEffect {
+    /* Start the floating animation and make the animation last for 0.5 seconds */
     animation: shake 5.0s;
     /* When the animation is finished, start again */
     animation-iteration-count: infinite;
-}
-
-.buttonTopMargin {
-    margin-top: 20px;
 }
 
 @keyframes shake {
