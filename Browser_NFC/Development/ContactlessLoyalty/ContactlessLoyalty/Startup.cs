@@ -38,7 +38,6 @@ namespace ContactlessLoyalty
 
             services.AddDbContext<DatabaseContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AuthenticationContextConnection")));
-
             services.AddRazorPages();
         }
 
@@ -58,13 +57,9 @@ namespace ContactlessLoyalty
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseRouting();
-
             app.UseAuthentication();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
