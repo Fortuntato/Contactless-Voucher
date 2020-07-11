@@ -36,9 +36,9 @@ namespace ContactlessLoyalty.Areas.Identity
                     {
                         options.SignIn.RequireConfirmedEmail = false;
                         options.SignIn.RequireConfirmedPhoneNumber = false;
-                        options.Password.RequireLowercase = false;
-                        options.Password.RequireUppercase = false;
-                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireLowercase = false; //TOENABLE
+                        options.Password.RequireUppercase = false; //TOENABLE
+                        options.Password.RequireNonAlphanumeric = false; //TOENABLE
                     }).AddEntityFrameworkStores<DatabaseContext>();
             });
         }
