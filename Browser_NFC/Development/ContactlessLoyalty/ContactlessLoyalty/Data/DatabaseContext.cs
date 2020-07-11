@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContactlessLoyalty.Data
 {
+    /// <summary>
+    /// Database context that creates the tables through Entity Core Framework
+    /// </summary>
     public class DatabaseContext : IdentityDbContext<AccountContactlessLoyaltyUser>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
@@ -19,7 +22,6 @@ namespace ContactlessLoyalty.Data
         {
             base.OnModelCreating(builder);
         }
-
         public DbSet<Card> LoyaltyCards { get; set; }
     }
 }
