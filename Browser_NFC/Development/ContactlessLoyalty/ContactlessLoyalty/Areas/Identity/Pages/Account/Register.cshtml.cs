@@ -88,7 +88,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             if (!Input.AcceptTermsAndConditions)
             {
                 ModelState.AddModelError("AcceptTermsAndConditions", "Please accept the Terms and Conditions agreement.");
-            };
+            }
 
             if (ModelState.IsValid)
             {

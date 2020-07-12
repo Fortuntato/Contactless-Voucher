@@ -92,6 +92,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+
                 return Page();
             }
 

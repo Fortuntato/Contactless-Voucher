@@ -74,7 +74,6 @@ namespace ContactlessLoyalty.Controllers
 
         public async Task<IActionResult> CreateCard()
         {
-
             // Get the user id to store with the new card
             AccountContactlessLoyaltyUser user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -156,7 +155,7 @@ namespace ContactlessLoyalty.Controllers
             DateTime currentTime = DateTime.Now.ToLocalTime();
 
             // Check store scheme date. 
-            if (editCard.StoreSchemeCode != StoreSchemeCode && "DefaultValueStore" != StoreSchemeCode && "NFC_TagEmpty" != StoreSchemeCode)
+            if (editCard.StoreSchemeCode != StoreSchemeCode && StoreSchemeCode != "DefaultValueStore" && StoreSchemeCode != "NFC_TagEmpty")
             {
                 _logger.LogError("Customer attempt to collect stamp with invalid scheme code. Expected: {0} . from tag: {1}", editCard.StoreSchemeCode, StoreSchemeCode);
                 ModelState.AddModelError("SchemeInvalid", "Collection attempted with invalid scheme code. " + StoreSchemeCode);
@@ -164,7 +163,7 @@ namespace ContactlessLoyalty.Controllers
             }
 
             // Manual check for expected tags - Check for SR. Only if TagSR is expected value, continue.
-            if ("04:15:8a:62:81:65:81" != TagSR && "DefaultValueTag" != TagSR && "NFC_EmptySR" != TagSR)
+            if (TagSR != "04:15:8a:62:81:65:81" && TagSR != "DefaultValueTag" && TagSR != "NFC_EmptySR")
             {
                 _logger.LogError("Unexpected tag serial number: " + TagSR);
                 ModelState.AddModelError("Invalid_Tag", "Collection attempted with invalid tag: " + TagSR);
@@ -172,7 +171,7 @@ namespace ContactlessLoyalty.Controllers
             }
 
             // Check for valid collection rate. Customer can collect depending on the key value in the app settings
-            if (isTimeValid(currentTime, editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate")))
+            if (IsTimeValid(currentTime, editCard.LastStampDateTime, _configuration.GetValue<string>("CustomSettings:CollectionRate")))
             {
                 editCard.LastStampDateTime = currentTime;
                 editCard.NumberOfStamps++;
@@ -183,7 +182,6 @@ namespace ContactlessLoyalty.Controllers
                 ModelState.AddModelError("RateInvalid", "Collection attempted on invalid day.");
                 return View("Index", editCard);
             }
-
 
             // The following case is to prevent user from collecting more stamps before collecting the voucher.
             if (editCard.NumberOfStamps > (int)SchemeLimit.WembleyEmporium)
@@ -267,7 +265,7 @@ namespace ContactlessLoyalty.Controllers
             return false;
         }
 
-        public bool isTimeValid(DateTime currentTime, DateTime lastStampDateTime, string redemptionRate)
+        public bool IsTimeValid(DateTime currentTime, DateTime lastStampDateTime, string redemptionRate)
         {
             switch (redemptionRate.ToLower())
             {
@@ -276,18 +274,21 @@ namespace ContactlessLoyalty.Controllers
                     {
                         return true;
                     }
+
                     break;
                 case "daily":
                     if ((currentTime - lastStampDateTime).TotalDays >= 1)
                     {
                         return true;
                     }
+
                     break;
                 case "weekly":
                     if ((currentTime - lastStampDateTime).TotalDays >= 7)
                     {
                         return true;
                     }
+
                     break;
                 case "unlimited":
                     return true;

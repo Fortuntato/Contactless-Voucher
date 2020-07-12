@@ -22,6 +22,7 @@ namespace ContactlessLoyalty.Data
         {
             base.OnModelCreating(builder);
         }
+
         public DbSet<Card> LoyaltyCards { get; set; }
     }
 }

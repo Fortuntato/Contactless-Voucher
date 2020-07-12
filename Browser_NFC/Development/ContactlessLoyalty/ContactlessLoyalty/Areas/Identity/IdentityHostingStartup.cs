@@ -36,10 +36,10 @@ namespace ContactlessLoyalty.Areas.Identity
                     {
                         options.SignIn.RequireConfirmedEmail = false;
                         options.SignIn.RequireConfirmedPhoneNumber = false;
-                        options.Password.RequireLowercase = false; //TOENABLE
-                        options.Password.RequireUppercase = false; //TOENABLE
-                        options.Password.RequireNonAlphanumeric = false; //TOENABLE
-                        options.Password.RequireDigit = false; //TOENABLE
+                        options.Password.RequireLowercase = false; // TOENABLE
+                        options.Password.RequireUppercase = false; // TOENABLE
+                        options.Password.RequireNonAlphanumeric = false; // TOENABLE
+                        options.Password.RequireDigit = false; // TOENABLE
                     }).AddEntityFrameworkStores<DatabaseContext>();
             });
         }

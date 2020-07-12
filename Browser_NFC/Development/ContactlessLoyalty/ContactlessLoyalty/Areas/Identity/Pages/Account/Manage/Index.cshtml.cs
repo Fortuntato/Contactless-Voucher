@@ -109,6 +109,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number and username.";
                     return RedirectToPage();
                 }
+
                 await _signInManager.RefreshSignInAsync(user);
                 StatusMessage = "Your profile has been updated";
                 return RedirectToPage();
