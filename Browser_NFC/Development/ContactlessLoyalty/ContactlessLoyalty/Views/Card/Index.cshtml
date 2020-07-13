@@ -108,10 +108,8 @@
                                 document.getElementById("hiddenForm").submit();
                             }
                             break;
-                        case "unknown":
-                            text += newLine + decoder.decode(record.data) + "(UNKNOWN)";
                         default:
-                            text += newLine + "Something unexpected: " + record
+                            console.log("Something unexpected: " + record)
                             break;
                     }
                 }
