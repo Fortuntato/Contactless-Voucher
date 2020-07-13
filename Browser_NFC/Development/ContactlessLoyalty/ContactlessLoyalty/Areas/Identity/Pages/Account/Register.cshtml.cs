@@ -51,7 +51,7 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
             [Required]
             [Phone]
             [Display(Name = "Mobile Phone Number")]
-            //// TOENABLE[RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")] // Commented out for testing purposes
+            [RegularExpression("^44[0-9]{9}|07[0-9]{9}$", ErrorMessage = "Please enter a valid UK phone number starting with 44 or 07")]
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -92,7 +92,14 @@ namespace ContactlessLoyalty.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                AccountContactlessLoyaltyUser user = new AccountContactlessLoyaltyUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.PhoneNumber, PhoneNumber = Input.PhoneNumber };
+                AccountContactlessLoyaltyUser user = new AccountContactlessLoyaltyUser
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    UserName = Input.PhoneNumber,
+                    PhoneNumber = Input.PhoneNumber
+                };
+
                 IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

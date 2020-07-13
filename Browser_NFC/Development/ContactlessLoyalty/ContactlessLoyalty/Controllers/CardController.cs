@@ -51,7 +51,6 @@ namespace ContactlessLoyalty.Controllers
             // At the moment is getting only the first card found in the DB. TODO: Check the correspondent card 
             Card dashboard = userCards.Where(x => x.User == user).FirstOrDefault();
 
-            // Maybe worth checking again
             if (dashboard == null)
             {
                 return RedirectToAction("ErrorDetails", "Card");
