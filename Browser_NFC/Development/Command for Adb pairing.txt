@@ -1,0 +1,5 @@
+cd C:\Program Files (x86)\Minimal ADB and Fastboot
+
+adb devices
+
+Documentation debugging: https://developers.google.com/web/tools/chrome-devtools/remote-debugging
