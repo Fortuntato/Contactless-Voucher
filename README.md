@@ -9,4 +9,4 @@ The target audience of the service can be considered as the retailers in the sma
 
 At the end of this project, the software developed gives the opportunity for the customer to engage with the retailer. From the retailer point of the view, the web application implemented for this beta version does not meet all the requirements although it gives the essentials functionalities.
 
-Check for the Project Report in the documentation folder for the full documentation.
+Check here for the documentation file: https://github.com/Fortuntato/Contactless-Voucher/blob/master/Documentation/Final%20Report/Contactless%20Loyalty%20Project%20Report.pdf
