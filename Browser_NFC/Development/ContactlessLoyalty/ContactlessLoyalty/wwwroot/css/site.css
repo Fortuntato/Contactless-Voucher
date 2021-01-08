@@ -20,17 +20,19 @@ a {
     color: #94DBED;
 }
 
+#bodyWidthDesktop {
+    width: 375px;
+}
+
 /*footer {
     position: fixed;
     border-bottom:5px;
 }*/
-
 /*.footer-wrapper{
     min-height: 100%;
     margin-bottom: -20px;*/ /* Put negative height of the footer here */
-    /*padding-bottom: 20px;*/ /* Put height of the footer here. Needed for higher than screen height pages */
+/*padding-bottom: 20px;*/ /* Put height of the footer here. Needed for higher than screen height pages */
 /*}*/
-
 body {
     padding-top: 50px;
     padding-bottom: 20px;

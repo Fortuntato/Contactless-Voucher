@@ -57,7 +57,13 @@
         @*<footer class="navbar-fixed-bottom">
             <p>&copy; 2020 - ContactlessLoyalty</p>
         </footer>*@
-
+    <script>
+        var device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+        console.log(device);
+        if (!device) {
+            document.getElementsByTagName("body")[0].setAttribute("id", "bodyWidthDesktop");
+        }
+    </script>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
