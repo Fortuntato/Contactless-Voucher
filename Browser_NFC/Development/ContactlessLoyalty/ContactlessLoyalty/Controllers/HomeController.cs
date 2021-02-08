@@ -14,14 +14,14 @@
 
         public IActionResult About()
         {
-            ViewData["Message"] = "This is a Final Year Project.";
+            ViewData["Message"] = "A Final Year Project 2019-2020";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Feel free to contact me by email for further information.";
+            ViewData["Message"] = "Contact";
 
             return View();
         }

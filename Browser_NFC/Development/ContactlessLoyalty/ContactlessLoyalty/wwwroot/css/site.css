@@ -20,6 +20,10 @@ a {
     color: #94DBED;
 }
 
+p {
+    text-align: justify;
+}
+
 #bodyWidthDesktop {
     width: 375px;
 }
