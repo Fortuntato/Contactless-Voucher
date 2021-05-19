@@ -1,5 +1,5 @@
 # Contactless Loyalty
- Final Year Project 2019/2020
+Final Year Project 2019/2020
 
 This project aims to resolve the problem of the physical loyalty cards either made of paper or plastic. 
 
@@ -9,4 +9,12 @@ The target audience of the service can be considered as the retailers in the sma
 
 At the end of this project, the software developed gives the opportunity for the customer to engage with the retailer. From the retailer point of the view, the web application implemented for this beta version does not meet all the requirements although it gives the essentials functionalities.
 
-Check here for the documentation file: https://github.com/Fortuntato/Contactless-Voucher/blob/master/Documentation/Final%20Report/Contactless%20Loyalty%20Project%20Report.pdf
+Check here for the full documentation file: https://github.com/Fortuntato/Contactless-Voucher/blob/master/Documentation/Final%20Report/Contactless%20Loyalty%20Project%20Report.pdf
+
+Final Web Application intended for mobile devices to be found at this link: https://contactlessloyalty.azurewebsites.net/
+
+Or Scan the QR Code here:
+
+![image](https://user-images.githubusercontent.com/37523381/118809240-46fb0200-b8a2-11eb-81a9-76e07ad83e5a.png)
+
+N.B. It may take a while to load since it is on a Azure Free Hosting Plan
